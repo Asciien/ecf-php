@@ -1,0 +1,90 @@
+/* Fonts */
+@font-face {
+    font-family: "LouisGeorgeCafe";
+    src: url(../elements/font/Louis_George_Cafe.ttf);
+}
+@font-face {
+    font-family: "Quicksand";
+    src: url(../elements/font/Quicksand_Book.otf);
+}
+
+
+
+/*   Body   */
+body {
+    margin: 0;
+    background-color:  #4C5278;
+}
+
+
+
+/*  Header   */
+header {
+    height: 100px;
+    width: 100%;
+    background-color: #2C388E;
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+
+    #logo {
+        height: 60px;
+        margin-left: 20px;
+        filter: invert(1);
+    }
+
+    h1 {
+        font-family: LouisGeorgeCafe;
+        color: white;
+        margin-right: 10px;
+        text-align: right;
+        font-size: larger;
+        margin-left: 10px;
+    }
+}
+
+
+
+/* Connexion interface */
+
+.connexion_interface {
+    position: absolute;
+    display: flex;
+    background-color: white;
+    padding: 25px;
+    top: 40%;
+    left: 35%;
+    border-radius: 20px;
+    flex-direction: column;
+
+    .inputs {
+        width: 25vw;
+        height: 30px;
+        margin: 5px;
+        border: 2px solid black;
+    }
+    button {
+        margin-top: 25px;
+        padding: 20px;
+        font-size: larger;
+        font-weight: bold;
+    }
+}
+
+@media only screen and (max-width: 630px) {
+
+.connexion_interface {
+    top: 40%;
+    left: 18%;
+
+        .inputs {
+            width: 48vw;
+            font-weight: bold;
+        }
+        .button {
+            font-weight: bold;
+            font-size: 35px;
+        }
+    }
+}

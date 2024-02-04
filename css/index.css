@@ -1,0 +1,369 @@
+/* Fonts */
+@font-face {
+    font-family: "LouisGeorgeCafe";
+    src: url(../elements/font/Louis_George_Cafe.ttf);
+}
+@font-face {
+    font-family: "Quicksand";
+    src: url(../elements/font/Quicksand_Book.otf);
+}
+
+
+
+/*   Body   */
+body{
+    margin: 0;
+    position: absolute;
+}
+
+
+
+/*  Header   */
+header {
+    height: 100px;
+    width: 100%;
+    background-color: #2C388E;
+    position: fixed;
+
+    ul {
+        height: 100px; 
+        width: 100%; 
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    a {
+        size: 100%;
+    }
+
+    #login {
+        height: 50px;
+        filter: invert(1);
+        margin-right: 20px;
+    }
+
+    #logo {
+        height: 60px;
+        margin-left: 20px;
+        filter: invert(1);
+    }
+
+    #phone {
+        display: flex;
+        justify-content: center;
+
+        a {
+            width: 100%;
+        }
+    }
+}
+
+
+
+/* Tiles Navigation */
+#tiles_navigation {
+    padding-top: 124px;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .tilenav {
+        background-color: rgb(182, 177, 177);
+        margin: 20px;
+        width: 30%;
+        height: 450px;
+
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+    .tilenav_title{
+        font-family: LouisGeorgeCafe;
+        color: white;
+        font-size: 2rem;
+        text-align: center;
+        padding-top: 8rem;
+    }
+    .tilenav_see_more {
+        font-family: LouisGeorgeCafe;
+        color: white;
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    #tile_first {
+        background-image: url("../elements/images/illustration_repair.jpg");
+    }
+    #tile_second {
+        background-image: url("../elements/images/illustration_bodycar.jpg");
+    }
+    #tile_third {
+        background-image: url("../elements/images/illustration_sell.jpg");
+    }
+}
+
+
+
+/* Contact Form */
+#contact_tile {
+    background-color: #4C5278;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-end;
+
+    h2 {
+        color: white;
+        font-style: LouisGeorgeCafe;
+        padding-left: 10px;
+    }
+
+    #form_fields {
+        text-align: center;
+    }
+
+    input {
+        color: white;
+        width: 40%;
+        border: 2px solid white;
+    }
+    textarea {
+        width: 85%;
+        height: 150px;
+        resize: none;
+        color: white;
+    }
+    input[value="Envoyer"] {
+        background-color: white;
+        color: #4C5278;
+        font-weight: bold;
+        width: 500px;
+        height: 70px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+}
+
+
+
+/* Opinion section */
+#opinion {
+    background-color: #3A416B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-direction: column;
+    margin-top: 25px;
+
+    h2 {
+        color: white;
+        font-style: LouisGeorgeCafe;
+        padding-left: 10px;
+        }
+        
+    button {
+        height: 60px;
+        width: 160px;
+        color:#3A416B;
+        font-weight: bold;
+    }
+
+    #opinion_group {
+        text-align: center;
+    }
+
+    #opinion_arrow_back, #opinion_arrow_next {
+        filter: invert(1);
+        padding-left: 25px;
+        padding-right: 25px;
+        top: 50px;
+    }
+
+    #opinion_carousel {
+        width: 80%;
+        padding: 30px;
+        margin: 20px;
+        display: inline-flex;
+        justify-content: space-between;
+        border: 2px solid white;
+        overflow: scroll;
+
+        p {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .opinion_tile {
+            background-color: white;
+            width: 30%;
+            height: 270px;
+            overflow: hidden;
+            min-width: 220px;
+            margin-right: 15px;
+        }
+        .opinion_tile_header {
+            width: 100%;
+            justify-content: space-between;
+            display: flex;
+
+            .opinion_tile_name {
+                padding-top: 15px;
+                width: 100%;
+                margin: 0;
+                background-color: #4C5278;
+                font-size: 1.2em;
+                font-family: LouisGeorgeCafe;
+                color:white;
+            }
+            .opinion_tile_grade {
+                display: inline-flex;
+                align-items: center;
+                background-color: #2C388E;
+                padding-right: 8px;
+                padding-left: 5px;
+                color: white;
+            }
+            .opinion_message {
+                font-family: quicksand;
+            }
+        }
+    }
+    #opinion_popup{
+        background-color: #4C5278;
+        border: solid 2px white;
+        border-radius: 20px;
+        width: 80%;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        display: none;
+
+        input {
+            width: 50%;
+        }
+        button {
+            margin-bottom: 15px;
+            width: 20%;
+        }
+        #opinion_button_list {
+            display: flex;
+            width: 80%;
+        }
+        textarea {
+            width: 85%;
+            height: 150px;
+            resize: none;
+            color: white;
+            margin: 15px;
+            border: solid 3px white;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+/* Footer */
+footer {
+    background-color: #2C388E;
+    text-align: center;
+    margin: 0;
+
+    p {
+        color: white;
+        margin: 0;
+        font-style: quicksand;
+        font-size: 18px;
+    }
+    :first-child {
+        padding-top: 15px;
+    }
+    :last-child {
+        padding-bottom: 15px;
+    }
+}
+
+
+
+/*--- Size Changer of Screen ---*/
+@media only screen and (max-width: 840px) {
+
+    #tiles_navigation {
+        padding-top: 124px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    
+        .tilenav {
+            background-color: rgb(182, 177, 177);
+            margin: 20px;
+            width: 90%;
+            height: 300px;
+            display: flex;
+    
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        
+            h3 {
+                display: none;
+            }
+            h2 {
+                margin: 0;
+                padding-top: 0;
+            }
+            a {
+                display: flex;
+                width: 100%;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+            }
+        }    
+    }
+    #contact_tile {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+
+        #form_fields {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            width: 85%;
+        }
+    }
+    #opinion {
+
+        #opinion_carousel {
+            flex-direction: column;
+            align-items: center;
+            max-height: 500px;
+        }
+
+        .opinion_tile {
+            background-color: white;
+            overflow: hidden;
+            min-height: 159px;
+            margin-bottom: 10px;
+            width: 420px;
+        }
+    }
+}
