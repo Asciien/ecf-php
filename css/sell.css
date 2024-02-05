@@ -22,6 +22,7 @@ header {
     width: 100%;
     background-color: #2C388E;
     position: fixed;
+    z-index: 10;
 
     ul {
         height: 100px; 
@@ -60,39 +61,85 @@ header {
 }
 
 
+
+
+
+
+
 /*---   Main Elements   ---*/
 main {
     padding-top: 131px;
 
-    .content {
+    .filters {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        background-color: #3A416B;
+        margin-bottom: 25px;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 10px;
+        
     }
-    .content_mirror {
-        display: flex;
-        align-items: center;
-        flex-direction: row-reverse;
-    }
-
-    img{
-        width: 50%;
-    }
-    .paragraph {
-        padding: 30px;
-        font-family: quicksand;
-        font-size: large;
-        margin: 0;
+    label {
+        font-size: 15px;
         color: white;
-        font-weight: bolder;
     }
+    .slider {
+        height: 10px;
+        border: none;
+    }
+    .showcase {
+        display: flex;
+        margin-bottom: 40px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .case {
+        width: 90%;
+        background-color: white;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
 
-    .edition_button_admin {
-        display: none;
-        text-align: center;
-    }
+        img {
+            align-self: center;
+            width: 90%;
+        }
+
+        .vehicule_name {
+            font-size: 20px;
+            font-weight: bold;
+            padding-left: 18px;
+        }
+        .info {
+            text-align: right;
+            margin: 20px;
+            font-size: large;
+        }
+        .more_button {
+            width: 45%;
+            height: 50px;
+            background-color: #3A416B;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            align-self: center;
+        }
+    }  
 }
 
-/* Screen Adaptation */
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -118,16 +165,22 @@ footer {
 }
 
 
-@media only screen and (max-width: 900px) {
-    main{
-        img {
-            width: 100%;
+
+
+/*---   Media Adaptation   ---*/
+@media only screen and (min-width: 900px) {
+
+    main {
+        .showcase {
+            display: flex;
+            margin-bottom: 40px;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
         }
-        .content {
-            flex-direction: column-reverse;
-        }
-        .content_mirror {
-            flex-direction: column-reverse;
+        .case {
+            width: 30%;
         }
     }
 }

@@ -175,9 +175,8 @@
                 <a href="elements/images/credits.txt">Sources des images</a>
             </div>
             <?php
-                $user = 'root';
-                $pwd = 'isopropanol';
-
+                include_once 'config.php';
+                
                 $dbh = new PDO('mysql:host=localhost;dbname=main', $user, $pwd);
 
                 try {

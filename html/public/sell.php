@@ -3,13 +3,13 @@
     <head>
 
         <!--Head informations-->
-        <title>Garage V.Parrot | Carrosserie</title>
+        <title>Garage V.Parrot | Ventes</title>
         <meta charset="utf-8">
         <meta name="author" content="Raphaël Quinchon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--Import CSS-->
-        <link href="../../css/bodycar.css" rel="stylesheet">
+        <link href="../../css/sell.css" rel="stylesheet">
         <link href="../../css/materialize.css" rel="stylesheet">
 
         <!--Import Google Icon Font-->
@@ -21,18 +21,76 @@
     <body>
         <header>
             <ul>
-                <li><a href="../../index.html"><img id="logo" src="../../elements/images/logo.svg" alt="logo-garage"></a></li>
-                <li><a href="../manage/login.html"><img id="login" src="../../elements/images/login.svg" alt="connexion-icon"></a></li>
+                <li><a href="../../index.php"><img id="logo" src="../../elements/images/logo.svg" alt="logo-garage"></a></li>
+                <li><a href="../manage/login.php"><img id="login" src="../../elements/images/login.svg" alt="connexion-icon"></a></li>
             </ul>
             <div id="phone">
                 <a class="waves-effect waves-light btn-small" href="tel:0234567890"><i class="material-icons left">phone</i>02 34 56 78 90</a>
             </div>
         </header>
+
         <main>
             <div class="filters">
-                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                <div id="prix_filter">
+                    <label for="prix">Prix</label>
+                    <input type="range" min="100" max="10000" value="50" step="100" class="slider" id="prix">
+                </div>
+                <label for="prix">Kilométrage</label>
+                <input type="range" min="1" max="100" value="50" class="slider" id="kilometrage">
+                <label for="prix">Année de mise en circulation</label>
+                <input type="range" min="1" max="100" value="50" class="slider" id="circulation">
+            </div>
+            <div class="showcase">
+                <div class="case">
+                    <p class="vehicule_name">Nom du véhicule</p>
+                    <img src="../../elements/images/testTexture.png">
+                    <div class="info">
+                        <p class="prix">n/a</p>
+                        <p class="circulation">n/a</p>
+                        <p class="kilometrage">n/a</p>
+                    </div>
+                    <button class="more_button">En savoir plus</button>
+                </div>
+                <div class="case">
+                    <p class="vehicule_name">Nom du véhicule</p>
+                    <img src="../../elements/images/testTexture.png">
+                    <div class="info">
+                        <p class="prix">n/a</p>
+                        <p class="circulation">n/a</p>
+                        <p class="kilometrage">n/a</p>
+                    </div>
+                    <button class="more_button">En savoir plus</button>
+                </div>
+                <div class="case">
+                    <p class="vehicule_name">Nom du véhicule</p>
+                    <img src="../../elements/images/testTexture.png">
+                    <div class="info">
+                        <p class="prix">n/a</p>
+                        <p class="circulation">n/a</p>
+                        <p class="kilometrage">n/a</p>
+                    </div>
+                    <button class="more_button">En savoir plus</button>
+                </div>
+                <div class="case">
+                    <p class="vehicule_name">Nom du véhicule</p>
+                    <img src="../../elements/images/testTexture.png">
+                    <div class="info">
+                        <p class="prix">n/a</p>
+                        <p class="circulation">n/a</p>
+                        <p class="kilometrage">n/a</p>
+                    </div>
+                    <button class="more_button">En savoir plus</button>
+                </div>
+                <div class="case">
+                    <p class="vehicule_name">Nom du véhicule</p>
+                    <img src="../../elements/images/testTexture.png">
+                    <div class="info">
+                        <p class="prix">n/a</p>
+                        <p class="circulation">n/a</p>
+                        <p class="kilometrage">n/a</p>
+                    </div>
+                    <button class="more_button">En savoir plus</button>
+                </div>
             </div>
         </main>
 
