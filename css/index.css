@@ -13,7 +13,6 @@
 /*   Body   */
 body{
     margin: 0;
-    position: absolute;
 }
 
 
@@ -24,6 +23,7 @@ header {
     width: 100%;
     background-color: #2C388E;
     position: fixed;
+    z-index: 1;
 
     ul {
         height: 100px; 
@@ -173,17 +173,6 @@ header {
         font-weight: bold;
     }
 
-    #opinion_group {
-        text-align: center;
-    }
-
-    #opinion_arrow_back, #opinion_arrow_next {
-        filter: invert(1);
-        padding-left: 25px;
-        padding-right: 25px;
-        top: 50px;
-    }
-
     #opinion_carousel {
         width: 80%;
         padding: 30px;
@@ -243,6 +232,7 @@ header {
         align-items: center;
         margin-top: 30px;
         display: none;
+        z-index: 0;
 
         input {
             width: 50%;
@@ -288,9 +278,6 @@ footer {
     }
     :first-child {
         padding-top: 15px;
-    }
-    :last-child {
-        padding-bottom: 15px;
     }
 }
 

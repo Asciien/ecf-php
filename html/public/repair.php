@@ -17,6 +17,17 @@
 
     </head>
     <body>
+        <?php
+            // Connexion à la base de données
+            $servername = "localhost";
+            $username = "root";
+            $password = "isopropanol";
+            $dbname = "main";
+            
+            $conn = new mysqli($servername, $username, $password, $dbname);
+        ?>
+
+
         <header>
             <ul>
                 <li><a href="../../index.php"><img id="logo" src="../../elements/images/logo.svg" alt="logo-garage"></a></li>
@@ -29,13 +40,14 @@
         <main>
             <article id="content_first">
                 <div class="content">
-                    <p class="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
-                        officia deserunt mollit anim id est laborum.</p>
+                    <?php
+                        $sql = "SELECT FirstText, SecondText, ThirdText from repair";
+                        $result = $conn->query($sql);
+
+                        $row = $result->fetch_assoc();
+
+                        echo "<p class='paragraph'>" . $row['FirstText'] . "</p>";
+                    ?>
                     <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">
@@ -45,13 +57,14 @@
             </article>
             <article id="content_second">
                 <div class="content_mirror">
-                    <p class="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
-                        officia deserunt mollit anim id est laborum.</p>
+                    <?php
+                        $sql = "SELECT FirstText, SecondText, ThirdText from repair";
+                        $result = $conn->query($sql);
+
+                        $row = $result->fetch_assoc();
+
+                        echo "<p class='paragraph'>" . $row['SecondText'] . "</p>";
+                    ?>
                     <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">
@@ -61,13 +74,14 @@
             </article>
             <article id="content_third">
                 <div class="content">
-                    <p class="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
-                        officia deserunt mollit anim id est laborum.</p>
+                    <?php
+                        $sql = "SELECT FirstText, SecondText, ThirdText from repair";
+                        $result = $conn->query($sql);
+
+                        $row = $result->fetch_assoc();
+
+                        echo "<p class='paragraph'>" . $row['ThirdText'] . "</p>";
+                    ?>
                     <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">

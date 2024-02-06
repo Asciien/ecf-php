@@ -19,6 +19,16 @@
     </head>
     <body>
 
+        <?php
+        // Connexion à la base de données
+        $servername = "localhost";
+        $username = "root";
+        $password = "isopropanol";
+        $dbname = "main";
+        
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        ?>
+
         <header>
             <ul>
                 <li><a href="#!"><img id="logo" src="elements/images/logo.svg" alt="logo-garage"></a></li>
@@ -79,55 +89,9 @@
             <div id="opinion">
                 <h2>Nos avis client</h2>
                 <button id="opinion_add_button">Laisser un avis</button>
+
+        
                 <div id="opinion_carousel">
-                    <!-- FIRST tile in opinion carousel -->
-                    <div class="opinion_tile">
-                        <div class="opinion_tile_header">
-                            <p class="opinion_tile_name" id="opinion_tile_name_first">Helina</p>
-                            <div class="opinion_tile_grade">
-                                <p id="opinion_tile_grade_value_first">5</p>
-                                <i class="material-icons">grade</i>
-                            </div>
-                        </div>
-                        <p class="opinion_message" id="opinion_message_first">The HTML document above contains a element with id="p1"
-                            We use the HTML DOM to get the element with id="p1"
-                            A JavaScript changes the content (innerHTML) of that element to "New text!"
-                            This example changes the content of an element</p> <!-- Max 240 Chars-->
-                    </div>
-                    <!-- SECOND tile in opinion carousel -->
-                    <div class="opinion_tile">
-                        <div class="opinion_tile_header">
-                            <p class="opinion_tile_name" id="opinion_tile_name_second">Alexandre</p>
-                            <div class="opinion_tile_grade">
-                                <p id="opinion_tile_grade_value_second">3</p>
-                                <i class="material-icons">grade</i>
-                            </div>
-                        </div>
-                        <p id="opinion_message_second">n/a</p>
-                    </div>
-                    <!-- THIRD tile in opinion carousel -->
-                    <div class="opinion_tile">
-                        <div class="opinion_tile_header">
-                            <p class="opinion_tile_name" id="opinion_tile_name_third">Noa</p>
-                            <div class="opinion_tile_grade">
-                                <p id="opinion_tile_grade_value_third">4</p>
-                                <i class="material-icons">grade</i>
-                            </div>
-                        </div>
-                        <p id="opinion_message_third">n/a</p>
-                    </div>
-                    <!-- FOURTH tile in opinion carousel -->
-                    <div class="opinion_tile">
-                        <div class="opinion_tile_header">
-                            <p class="opinion_tile_name" id="opinion_tile_name_third">Noa</p>
-                            <div class="opinion_tile_grade">
-                                <p id="opinion_tile_grade_value_third">4</p>
-                                <i class="material-icons">grade</i>
-                            </div>
-                        </div>
-                        <p id="opinion_message_third">n/a</p>
-                    </div>
-                    <!-- FIFTH tile in opinion carousel -->
                     <div class="opinion_tile">
                         <div class="opinion_tile_header">
                             <p class="opinion_tile_name" id="opinion_tile_name_third">Noa</p>
@@ -139,6 +103,9 @@
                         <p id="opinion_message_third">n/a</p>
                     </div>
                 </div>
+
+
+
                 <div id="opinion_popup">
                     <h2>Laissez votre avis</h2>
                     <input id="opinion_name" placeholder="Prénom" type="text" maxlength="32" required>
@@ -163,31 +130,43 @@
 
         <footer>
             <div id="hours">
-                <p>Lundi: <span id="monday_hour_open">n/a</span>-<span id="monday_mid_break">n/a</span>, <span id="monday_break_end">n/a</span>-<span id="monday_hour_close">n/a</span></p>
-                <p>Mardi: <span id="tuesday_hour_open">n/a</span>-<span id="tuesday_mid_break">n/a</span>, <span id="tuesday_break_end">n/a</span>-<span id="tuesday_hour_close">n/a</span></p>
-                <p>Mercredi: <span id="wednesday_hour_open">n/a</span>-<span id="wednesday_mid_break">n/a</span>, <span id="wednesday_break_end">n/a</span>-<span id="wednesday_hour_close">n/a</span></p>
-                <p>Jeudi: <span id="thursday_hour_open">n/a</span>-<span id="thursday_mid_break">n/a</span>, <span id="thursday_break_end">n/a</span>-<span id="thursday_hour_close">n/a</span></p>
-                <p>Vendredi: <span id="friday_hour_open">n/a</span>-<span id="friday_mid_break">n/a</span>, <span id="friday_break_end">n/a</span>-<span id="friday_hour_close">n/a</span></p>
-                <p>Samedi: <span id="saturday_hour_open">n/a</span>-<span id="saturday_mid_break">n/a</span>, <span id="saturday_break_end">n/a</span>-<span id="saturday_hour_close">n/a</span></p>
-                <p>Dimanche: <span id="sunday_hour_open">n/a</span>-<span id="sunday_mid_break">n/a</span>, <span id="sunday_break_end">n/a</span>-<span id="sunday_hour_close">n/a</span></p>
-            </div>
-            <div>
-                <a href="elements/images/credits.txt">Sources des images</a>
-            </div>
-            <?php
-                include_once 'config.php';
-                
-                $dbh = new PDO('mysql:host=localhost;dbname=main', $user, $pwd);
 
-                try {
-                    // Affichage du message de connexion réussie en H1
-                    echo "<h1>Connexion à la base de données réussie !</h1>";
             
-                } catch (PDOException $e) {
-                    // En cas d'erreur de connexion, affichez l'erreur en H1
-                    echo "<h1>Erreur de connexion à la base de données : " . $e->getMessage() . "</h1>";
-                }
-            ?>
+                <?php
+            
+                    // Requête SQL pour récupérer les informations de la table openhours
+                    $sql = "SELECT Day, IsOpen, MorningOpeningTime, MorningClosingTime, AfternoonOpeningTime, AfternoonClosingTime FROM openhours";
+                    $result = $conn->query($sql);
+                    
+                    // Vérifier si des résultats sont retournés
+                    if ($result->num_rows > 0) {
+                        // Parcourir chaque ligne de résultat
+                        while($row = $result->fetch_assoc()) {
+                            // Afficher les informations selon le format demandé
+                            echo "<p>" . $row["Day"] . ": ";
+                            
+                            if ($row["IsOpen"]) {
+                                // Jour ouvert
+                                echo $row["MorningOpeningTime"] . " - " . $row["MorningClosingTime"] . " & " . $row["AfternoonOpeningTime"] . " - " . $row["AfternoonClosingTime"];
+                            } else {
+                                // Jour fermé
+                                echo "Fermé";
+                            }
+                            
+                            echo "</p>";
+                        }
+                    } else {
+                        echo "Aucun résultat trouvé";
+                    }
+                    
+                    // Fermer la connexion à la base de données
+                    $conn->close();
+
+                ?>
+
+
+            </div>
+            <a href="elements/images/credits.txt">Sources des images</a>
         </footer>
     </body>
 </html>
