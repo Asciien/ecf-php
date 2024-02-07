@@ -20,13 +20,13 @@
     <body>
 
         <?php
-        // Connexion à la base de données
-        $servername = "localhost";
-        $username = "root";
-        $password = "isopropanol";
-        $dbname = "main";
-        
-        $conn = new mysqli($servername, $username, $password, $dbname);
+            // Connexion à la base de données
+            $servername = "localhost";
+            $username = "root";
+            $password = "isopropanol";
+            $dbname = "main";
+            
+            $conn = new mysqli($servername, $username, $password, $dbname);
         ?>
 
         <header>
@@ -89,22 +89,27 @@
             <div id="opinion">
                 <h2>Nos avis client</h2>
                 <button id="opinion_add_button">Laisser un avis</button>
-
-        
                 <div id="opinion_carousel">
-                    <div class="opinion_tile">
-                        <div class="opinion_tile_header">
-                            <p class="opinion_tile_name" id="opinion_tile_name_third">Noa</p>
-                            <div class="opinion_tile_grade">
-                                <p id="opinion_tile_grade_value_third">4</p>
-                                <i class="material-icons">grade</i>
-                            </div>
-                        </div>
-                        <p id="opinion_message_third">n/a</p>
-                    </div>
+                    <?php
+                        $sql = "select * from opinion";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<div class='opinion_tile'>";
+                                    echo "<div class='opinion_header'>";
+                                        echo "<p class='opinion_name'>" . $row["Name"] . "</p>";
+                                        echo "<div class='opinion_grade'>";
+                                            echo "<p class='opinion_value'>" . $row["Rating"] . "</p>";
+                                            echo "<i class='material-icons'>grade</i>";
+                                        echo "</div>";
+                                    echo "</div>";
+                                    echo "<p class='opinion_message'>" . $row["Commentary"] . "</p>"; // Correction de cette ligne
+                                echo "</div>";
+                            }
+                        }
+                    ?>
                 </div>
-
-
 
                 <div id="opinion_popup">
                     <h2>Laissez votre avis</h2>
@@ -143,7 +148,7 @@
                         // Parcourir chaque ligne de résultat
                         while($row = $result->fetch_assoc()) {
                             // Afficher les informations selon le format demandé
-                            echo "<p>" . $row["Day"] . ": ";
+                            echo "<p>" . $row["Day"] . ":    ";
                             
                             if ($row["IsOpen"]) {
                                 // Jour ouvert
