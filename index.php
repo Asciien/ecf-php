@@ -31,8 +31,8 @@
 
         <header>
             <ul>
-                <li><a href="#!"><img id="logo" src="elements/images/logo.svg" alt="logo-garage"></a></li>
-                <li><a href="html/manage/login.php"><img id="login" src="elements/images/login.svg" alt="connexion-icon"></a></li>
+                <li><a href="#!"><img id="logo" src="elements/images/Header/logo.svg" alt="logo-garage"></a></li>
+                <li><a href="html/manage/login.php"><img id="login" src="elements/images/Header/login.svg" alt="connexion-icon"></a></li>
             </ul>
             <div id="phone">
                 <a class="waves-effect waves-light btn-small" href="tel:0234567890"><i class="material-icons left">phone</i>02 34 56 78 90</a>
@@ -68,19 +68,21 @@
             <div id="contact_tile">
                 <h2>Contactez nous dès maintenant</h2>
                 <div id="form_fields">
-                    <input id="name_contact_form" type="text" placeholder="Votre nom" maxlength="32" required>
-                    <input id="lastname_contact_form" type="text" placeholder="Votre prénom" maxlength="32" required>
-                    <input id="email_contact_form" type="email" placeholder="Votre Email" maxlength="128" required>
-                    <input id="num_contact_form" type="tel" placeholder="Votre numéro de téléphone" maxlength="10" required>
+                    <form method="post" action="php/contact.php">
+                        <input id="name_contact_form" name="firstname" type="text" placeholder="Votre nom" maxlength="32" required>
+                        <input id="lastname_contact_form" name="name" type="text" placeholder="Votre prénom" maxlength="32" required>
+                        <input id="email_contact_form" name="email" type="email" placeholder="Votre Email" maxlength="128" required>
+                        <input id="num_contact_form" name="phone" type="tel" placeholder="Votre numéro de téléphone" maxlength="10" required>
                         
-                    <textarea 
-                    id="message_contact_form" 
-                    name="msg_contact" 
-                    placeholder="Votre message"
-                    maxlength="1024"
-                    required></textarea>
+                        <textarea 
+                        id="message_contact_form" 
+                        name="message" 
+                        placeholder="Votre message"
+                        maxlength="1024"
+                        required></textarea>
 
-                    <input type="submit" value="Envoyer">
+                        <input type="submit" value="Envoyer">
+                    </form>
                 </div>
             </div>
             
@@ -96,16 +98,18 @@
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<div class='opinion_tile'>";
-                                    echo "<div class='opinion_header'>";
-                                        echo "<p class='opinion_name'>" . $row["Name"] . "</p>";
-                                        echo "<div class='opinion_grade'>";
-                                            echo "<p class='opinion_value'>" . $row["Rating"] . "</p>";
-                                            echo "<i class='material-icons'>grade</i>";
+                                if ($row["IsAllowed"] == true) {
+                                    echo "<div class='opinion_tile'>";
+                                        echo "<div class='opinion_header'>";
+                                            echo "<p class='opinion_name'>" . $row["Name"] . "</p>";
+                                            echo "<div class='opinion_grade'>";
+                                                echo "<p class='opinion_value'>" . $row["Rating"] . "</p>";
+                                                echo "<i class='material-icons'>grade</i>";
+                                            echo "</div>";
                                         echo "</div>";
+                                        echo "<p class='opinion_message'>" . $row["Commentary"] . "</p>"; // Correction de cette ligne
                                     echo "</div>";
-                                    echo "<p class='opinion_message'>" . $row["Commentary"] . "</p>"; // Correction de cette ligne
-                                echo "</div>";
+                                }
                             }
                         }
                     ?>
@@ -113,6 +117,7 @@
 
                 <div id="opinion_popup">
                     <h2>Laissez votre avis</h2>
+                    <i id="opinion_close_button" class='material-icons'>close</i>
                     <input id="opinion_name" placeholder="Prénom" type="text" maxlength="32" required>
                     <textarea
                         name="opinion_message" 
@@ -126,7 +131,7 @@
                         <button>4</button>
                         <button>5</button>
                     </div>
-                    <button id="opinion_add_button">Envoyer</button>
+                    <button id="opinion_send">Envoyer</button>
                 </div>
             </div>
         </main>
@@ -173,5 +178,6 @@
             </div>
             <a href="elements/images/credits.txt">Sources des images</a>
         </footer>
+        <script src="../ecf/js/index.js"></script>
     </body>
 </html>

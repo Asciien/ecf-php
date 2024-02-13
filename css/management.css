@@ -11,8 +11,13 @@
 
 
 /*   Body   */
-body {
-    margin: 0;
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
 }
 
 
@@ -58,7 +63,694 @@ nav {
         background-color: #3A416B;
     }
 }
+    @media only screen and (max-width: 850px) {
+        nav {
+            background-color: #3A416B;
+            display: flex;
+            padding-top: 100px;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+    }
 
-@media only screen and (max-width: 630px) {
-    
+
+/*   PAGES EDITION  */
+
+.pages {
+    display: block;
+
+    #bodycar_page {
+        display: none;
+    }
+
+
+    .pages_choose {
+        display: flex;
+
+        .page_choose_button{
+            background-color: #4c5278;
+            color: white;
+            font-family: LouisGeorgeCafe;
+            width: 50%;
+        }
+        #pages_choose_repair {
+            text-align: left;
+        }
+        #pages_choose_bodycar {
+            text-align: right;
+        }
+    }
+
+    .edition {
+        display: flex;
+        flex-direction: column;
+    }
+    .content {
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+        border: black solid 2px;
+    }
+    textarea {
+        width: 60%;
+        resize: none;
+        font-size: 1rem;
+    }
+    img {
+        width: 30%;
+    }
+    .image_change {
+        width: 10%;
+        align-self: center;
+        height: 50px;
+        margin: 10px;
+        border: darkgray solid 2px;
+        font-size: small;
+        font-weight: bold;
+        background: lightgray;
+    }
+    .save {
+        background-color: #5ca75c;
+        width: 100%;
+        height: 100px;
+        color: white;
+        font-size: larger;
+        font-weight: bolder;
+    }
 }
+
+    @media only screen and (max-width: 850px) {
+        .pages {
+            .content {
+                display: flex;
+                padding: 10px;
+                border: black solid 2px;
+                flex-direction: column;
+            }
+            textarea {
+                width: 100%;
+                height: 240px;
+                resize: none;
+                font-size: 1rem;
+            }
+            img {
+                width: auto;
+            }
+            .image_change {
+                width: auto;
+                align-self: center;
+                height: 50px;
+                margin: 10px;
+                border: darkgray solid 2px;
+                font-size: small;
+                font-weight: bold;
+                background: lightgray;        
+            }
+        }
+    }
+
+
+/* OPINION PAGE */
+
+.opinion {
+    display: none;      /*Valeur par défaut*/
+
+    .opinion_filter {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-bottom: black 2px solid;
+        overflow-x: scroll;
+    }
+    .opinion_tile {
+        border: black solid 1px;
+        width: 30%;
+        min-width: 30%;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .opinion_header {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        background-color: #4C5278;
+
+        .name {
+            padding-top: 15px;
+            padding-left: 25%;
+            padding-right: 25%;
+            margin: 0;
+            border-bottom: #4C5278 solid;
+            font-family: LouisGeorgeCafe;
+            font-weight: bold;
+            color: white;
+        }
+        .rating {
+            display: flex;
+            justify-content: space-between;
+        }
+        .rate {
+            font-family: LouisGeorgeCafe;
+            color: white;
+            font-weight: bold;
+        }
+    }
+    .opinion_main {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        min-height: 180px;
+
+        .message {
+            width: 90%;
+            text-align: center;
+            border-bottom: black solid 2px;
+            padding-bottom: 15px;
+            font-family: quicksand;
+        }
+    }
+    .opinion_button {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+
+        :first-child:not(i) {
+            background-color: #1e871e;
+            color: white;
+            border-radius: 15px;
+            width: 35%;
+            border: none;
+        }
+        :last-child:not(i) {
+            background-color: #534545;
+            color: white;
+            border-radius: 15px;
+            width: 35%;
+            border: none;
+        }
+    }
+    #star {
+        color: white;
+        align-self: center;
+        margin-left: 5px;
+    }
+
+    .opinion_online {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-bottom: black 2px solid;
+        overflow-x: scroll;
+    }
+
+    .opinion_add {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        margin-top: 32px;
+        align-items: center;
+
+        .input_name {
+            height: 34px;
+            width: 366px;
+            margin-bottom: 10px;
+        }
+        .input_rate {
+            display: flex;
+            height: 50px;
+            width: 100%;
+            justify-content: center;
+        }
+        button {
+            padding: 16px;
+            border-radius: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+            background-color: darkcyan; 
+        }
+        textarea {
+            width: 40%;
+            height: 150px;
+            margin-top: 15px;
+            font-size: large;
+        }
+        .validate {
+            background-color: #5ca75c;
+            height: 35px;
+            color: white;
+            font-weight: bold;
+            border-radius: 15px;
+            width: 35%;
+            border: none;
+            margin-top: 15px;
+        }
+    }
+    h2 {
+        font-family: LouisGeorgeCafe;
+        margin-left: 15px;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .opinion {
+
+        .opinion_filter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: black 2px solid;
+            overflow-x: scroll;
+            height: 350px;
+        }
+        .opinion_tile {
+            border: black solid 1px;
+            width: 90%;
+            min-width: 30%;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .opinion_header {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            background-color: #4C5278;
+            flex-direction: column;
+    
+            .name {
+                /* padding-top: 15px; */
+                /* padding-left: 25%; */
+                /* padding-right: 25%; */
+                margin: 7px;
+                border-bottom: #4C5278 solid;
+                font-family: LouisGeorgeCafe;
+                font-weight: bold;
+                color: white;
+                text-align: center;
+            }
+            .rating {
+                display: flex;
+                justify-content: center;
+            }
+        }
+    
+        .opinion_online {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: black 2px solid;
+            overflow-x: scroll;
+            height: 350px;
+        }
+        .opinion_add {
+            textarea {
+                width: 98%;
+                height: 150px;
+                margin-top: 15px;
+                font-size: large;
+            }
+        }
+    }
+}
+
+
+/* USER GESTION */
+
+.users {
+    display: none;      /*Valeur par défaut*/
+
+    .users_list {
+        .user_info {
+            border: black 2px solid;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            
+            .user_gestion {
+
+            
+                .delete_user {
+                    background-color: #d94141;
+                    border: none;
+                }
+            }
+            .user_names {
+                display: flex;
+                justify-content: space-evenly;
+                background-color: lightgray;
+
+                i {
+                    padding-top: 15px;
+                }
+
+                p {
+                    background-color: white;
+                    padding: 5px;
+                }
+            }
+            .login_info {
+                display: flex;
+                justify-content: space-around;
+                background-color: #a9a8a8;
+
+                p {
+                    background-color: white;
+                    padding: 10px;
+                }
+                .password {
+                    display: flex;
+                    flex-direction: column;
+                    width: 50%;
+
+                    .user_password {
+                        height: 25px;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+/* CONTACT PAGE */
+
+.contact {
+    display: none; /* Valeur par défaut */
+
+    .contact_list {
+        .contact_case {
+            display: flex;
+            justify-content: space-around;
+            border-top: black solid 3px;
+            border-bottom: black solid 3px;
+            margin-top: 10px;
+
+            p {
+                font-family: LouisGeorgeCafe;
+            }
+
+            .contact_informations {
+                display: flex;
+                align-self: self-start;
+                flex-direction: column;
+                background-color: #4c5278;
+                width: 30%;
+                color: white;
+                font-weight: bolder;
+
+                .contact_names {
+                    display: flex;
+                    width: 100%;
+                    border-bottom: solid white 1px;
+                    flex-direction: column;
+                    align-items: center;
+                }
+                .contact_ways {
+                    margin-left: 15px;
+                }
+            }
+            
+            .message {
+                width: 70%;
+                font-size: medium;
+                padding: 20px;
+            }
+            .contact_delete {
+                width: 3%;
+                background-color: #cb5050;
+                border: none;
+
+                i {
+                    color: white
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .contact {
+        .contact_list {
+            .contact_case {
+                display: flex;
+                justify-content: space-around;
+                border-top: black solid 3px;
+                border-bottom: black solid 3px;
+                margin-top: 10px;
+                flex-direction: column;
+    
+                p {
+                    font-family: LouisGeorgeCafe;
+                    padding-left: 7px;
+                    padding-right: 7px;
+                }
+    
+                .contact_informations {
+                    display: flex;
+                    align-self: self-start;
+                    background-color: #4c5278;
+                    width: 100%;
+                    color: white;
+                    font-weight: bolder;
+                    flex-direction: column;
+    
+                    .contact_names {
+                        display: flex;
+                        width: 100%;
+                        border-bottom: solid white 1px;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+                    .contact_ways {
+                        display: flex;
+                        margin-left: 0;
+                        justify-content: space-between;
+                    }
+                }
+                
+                .message {
+                    width: auto;
+                    font-size: medium;
+                    padding: 20px;
+                }
+                .contact_delete {
+                    width: 100%;
+                    background-color: #cb5050;
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+/* SELL PAGE */
+
+.sells {
+
+    display: none;
+
+    h2 {
+        margin-left: 10px;
+        font-family: LouisGeorgeCafe;
+    }
+
+    .sells_online {
+        border-bottom: solid black;
+        display: flex;
+        overflow-x: scroll;
+        overflow-x: hidden;
+
+        .cases {
+            display: flex;
+            width: 20%;
+            margin: 20px;
+            border: black solid 2px;
+            border-radius: 20px;
+            flex-direction: column;
+            justify-content: center;
+
+            .case_header {
+                margin-left: 10px;
+
+                .online_vehicle_name {
+                    font-size: large;
+                    font-weight: bold;
+                    margin-bottom: 1px;
+                    font-family: quicksand;
+                }
+                .online_vehicle_price {
+                    margin: 0;
+                    font-family: quicksand;
+                }
+                .€ {
+                    margin-top: 0;
+                }
+            }
+            img {
+                width: 100%;
+            }
+            .sell_delete {
+                margin-top: 10px;
+                width: 100%;
+                border-radius: 0 0 16px 16px;
+                background-color: #ce6a6a;
+                border: none;
+                color: white;
+            }
+        }
+    }
+    .sells_add {
+        .inputs {
+            display: flex;
+            padding: 20px;
+            width: 100%;
+            justify-content: space-around;
+
+            .add_main {
+                display: flex;
+                flex-direction: column;
+                width: 40%;
+                
+                input {
+                    height: 30px;
+                }
+
+                textarea {
+                    resize: none;
+                    height: 150px;
+                    font-size: medium;
+                    font-family: quicksand;
+                }
+            }
+            .add_details {
+                display: flex;
+                flex-direction: column;
+                width: 15%;
+
+                input {
+                    height: 30px;
+                    color: black;
+                }
+            }
+            .add_pictures {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+
+                .pictures {
+                    border: black solid 1px;
+                    padding: 10px;
+                    background-color: #5a5151;
+                    color: white;
+                    font-size: medium;
+                }
+            }
+        }
+        .validate {
+            width: 100%;
+            height: 40px;
+            background-color: #58a558;
+            color: white;
+            font-size: larger;
+            font-weight: bold;
+        }
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .sells {
+        .sells_online {
+            border-bottom: solid black;
+            display: flex;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            flex-direction: column;
+            height: 500px;
+
+            .cases {
+                display: flex;
+                width: auto;
+                margin: 20px;
+                border: black solid 2px;
+                border-radius: 20px;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+        .sells_add {
+            .inputs {
+                display: flex;
+                padding: 0;
+                width: 100%;
+                justify-content: space-around;
+                flex-direction: column;
+                align-items: center;
+    
+                .add_main {
+                    display: flex;
+                    flex-direction: column;
+                    width: 90%;
+                }
+                    
+                .add_details {
+                    display: flex;
+                    width: 90%;
+                    margin-top: 25px;
+                    margin-bottom: 25px;
+                    flex-direction: column;
+    
+                    input {
+                        height: 30px;
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* HOURS MODIFICATIONS */
+
+.hours {
+    display: none;      /*Valeur par défaut*/
+    
+    .hours_fields {
+        display: flex;
+        justify-content: center;
+    }
+    .day {
+        font-size: 1.2em;
+        padding-right: 20px;
+        font-weight: bold;
+        font-family: sans-serif;
+    }
+    checkbox {
+        margin: 15px;
+        width: 17px;
+    }
+    input[type="time"] {
+        height: 30px;
+        margin: 10px;
+    }
+    p:not(.day) {
+        font-size: 1.2em;
+        /* padding: 20px; */
+        font-weight: bold;
+        font-family: sans-serif;
+    }
+}
+    @media only screen and (max-width: 850px) {
+        .hours {
+            .day {
+                font-size: 0.9em;
+                padding-right: 20px;
+                font-weight: bold;
+                font-family: sans-serif;
+            }
+        }
+    }

@@ -15,7 +15,7 @@
     </head>
     <body>
         <header>
-            <a href="../../index.php"><img id="logo" src="../../elements/images/logo.svg" alt="logo-garage"></a>
+            <li><a href="../../index.php"><img id="logo" src="../../elements/images/header/logo.svg" alt="logo-garage"></a></li>
             <h1>Connexion | Espace de gestion</h1>
         </header>
         <div class="connexion_interface">

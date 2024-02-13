@@ -30,8 +30,8 @@
 
         <header>
             <ul>
-                <li><a href="../../index.php"><img id="logo" src="../../elements/images/logo.svg" alt="logo-garage"></a></li>
-                <li><a href="../manage/login.php"><img id="login" src="../../elements/images/login.svg" alt="connexion-icon"></a></li>
+                <li><a href="../../index.php"><img id="logo" src="../../elements/images/header/logo.svg" alt="logo-garage"></a></li>
+                <li><a href="html/manage/login.php"><img id="login" src="../../elements/images/header/login.svg" alt="connexion-icon"></a></li>
             </ul>
             <div id="phone">
                 <a class="waves-effect waves-light btn-small" href="tel:0234567890"><i class="material-icons left">phone</i>02 34 56 78 90</a>

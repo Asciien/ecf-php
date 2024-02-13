@@ -96,13 +96,13 @@ header {
         text-align: center;
     }
     #tile_first {
-        background-image: url("../elements/images/illustration_repair.jpg");
+        background-image: url("../elements/images/main/illustration_repair.jpg");
     }
     #tile_second {
-        background-image: url("../elements/images/illustration_bodycar.jpg");
+        background-image: url("../elements/images/main/illustration_bodycar.jpg");
     }
     #tile_third {
-        background-image: url("../elements/images/illustration_sell.jpg");
+        background-image: url("../elements/images/main/illustration_sell.jpg");
     }
 }
 
@@ -235,6 +235,12 @@ header {
         display: none;
         z-index: 0;
 
+        i {
+            filter: invert(1);
+            margin-bottom: 20px;
+            border: solid 2px;
+        }
+
         input {
             width: 50%;
         }
@@ -356,6 +362,12 @@ footer {
             min-height: 159px;
             margin-bottom: 10px;
             width: 420px;
+        }
+        #opinion_popup {
+            background-color: #4C5278;
+            border: solid 2px white;
+            border-radius: 20px;
+            height: 680px;
         }
     }
 }
