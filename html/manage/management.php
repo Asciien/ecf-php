@@ -3,7 +3,7 @@
     <head>
         <!--Head informations-->
     
-        <title>Garage V.Parrot | Connexion</title>
+        <title>Garage V.Parrot | Gestion</title>
         <meta charset="utf-8">
         <meta name="author" content="Raphaël Quinchon">
         <meta name="description" content="Garage V.Parrot | Mecanique, réparation, carrosserie, ventes d'occasion">
@@ -34,12 +34,12 @@
 
         <main>
             <nav>
-                <button>Pages</button> <!--Admin seulement-->
-                <button>Avis</button> <!--Modération et ajout des avis client-->
-                <button>Contact</button>
-                <button>Ventes</button>
-                <button>Utilisateurs</button> <!--Admin seulement-->
-                <button>Horraires</button> <!--Admin seulement-->
+                <button onclick="Display('pages')">Pages</button> <!--Admin seulement-->
+                <button onclick="Display('opinion')">Avis</button> <!--Modération et ajout des avis client-->
+                <button onclick="Display('contact')">Contact</button>
+                <button onclick="Display('sells')">Ventes</button>
+                <button onclick="Display('users')">Utilisateurs</button> <!--Admin seulement-->
+                <button onclick="Display('hours')">Horraires</button> <!--Admin seulement-->
             </nav>
 
             <div class="pages">
@@ -235,13 +235,9 @@
                 <h2>Ajouter un avis</h2>
                 <div class="opinion_add">
                     <input class="input_name" id="input_name" placeholder="Nom" type="text" maxlength="32" required>
-                    <div class="input_rate">
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>4</button>
-                        <button>5</button>
-                    </div>
+                    <label for="prix">Note</label>
+                    <output>1</output>
+                    <input type="range" name="opinion_rating" id="opinion_rating" min="1" max="5" value="1" step="1" oninput="this.previousElementSibling.value = this.value">
                     <textarea
                         name="input_message" 
                         placeholder="Message"
@@ -370,7 +366,7 @@
                             <input class="vehicle_type" id="vehicle_type" placeholder="Transmission" type="text">
                         </div>
                         <div class="add_pictures">
-                            <input class="pictures" id="pictures" type="file">
+                            <input class="pictures" type="file" id="images" name="images[]" multiple accept="image/*">
                             <p class="added_pictures">Aucune image</p>
                         </div>
                     </div>
@@ -455,8 +451,10 @@
                     <p> / </p>
                     <input type="time" id="sunday_close_afternoon" name="sunday_close_afternoon" class="checkbox">
                 </div>
+                <button type="submit" id="hours_submit">Enregistrer</button>
             </div>
         </main>
         <script src="../../js/management.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </body>
 </html>

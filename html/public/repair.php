@@ -41,14 +41,14 @@
             <article id="content_first">
                 <div class="content">
                     <?php
-                        $sql = "SELECT FirstText, SecondText, ThirdText from repair";
+                        $sql = "SELECT FirstText, FirstImage from repair";
                         $result = $conn->query($sql);
 
                         $row = $result->fetch_assoc();
 
                         echo "<p class='paragraph'>" . $row['FirstText'] . "</p>";
+                        echo "<img src='../../elements/images/pages/repair/" . $row['FirstImage'] . "' />";
                     ?>
-                    <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">
                     <button id="edit_button_text_second"><i class="material-icons">edit</i></button>
@@ -58,14 +58,14 @@
             <article id="content_second">
                 <div class="content_mirror">
                     <?php
-                        $sql = "SELECT FirstText, SecondText, ThirdText from repair";
+                        $sql = "SELECT SecondText, SecondImage from repair";
                         $result = $conn->query($sql);
 
                         $row = $result->fetch_assoc();
 
                         echo "<p class='paragraph'>" . $row['SecondText'] . "</p>";
+                        echo "<img src='../../elements/images/pages/repair/" . $row['SecondImage'] . "' />";
                     ?>
-                    <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">
                     <button id="edit_button_text_second"><i class="material-icons">edit</i></button>
@@ -75,14 +75,14 @@
             <article id="content_third">
                 <div class="content">
                     <?php
-                        $sql = "SELECT FirstText, SecondText, ThirdText from repair";
+                        $sql = "SELECT ThirdText, ThirdImage from repair";
                         $result = $conn->query($sql);
 
                         $row = $result->fetch_assoc();
 
                         echo "<p class='paragraph'>" . $row['ThirdText'] . "</p>";
+                        echo "<img src='../../elements/images/pages/repair/" . $row['ThirdImage'] . "' />";
                     ?>
-                    <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">
                     <button id="edit_button_text_second"><i class="material-icons">edit</i></button>
@@ -92,8 +92,8 @@
         </main>
 
         <footer>
-        <div id="hours">
-            <p>Lundi: <span id="monday_hour_open">n/a</span>-<span id="monday_mid_break">n/a</span>, <span id="monday_break_end">n/a</span>-<span id="monday_hour_close">n/a</span></p>
+            <div id="hours">
+                <p>Lundi: <span id="monday_hour_open">n/a</span>-<span id="monday_mid_break">n/a</span>, <span id="monday_break_end">n/a</span>-<span id="monday_hour_close">n/a</span></p>
                 <p>Mardi: <span id="tuesday_hour_open">n/a</span>-<span id="tuesday_mid_break">n/a</span>, <span id="tuesday_break_end">n/a</span>-<span id="tuesday_hour_close">n/a</span></p>
                 <p>Mercredi: <span id="wednesday_hour_open">n/a</span>-<span id="wednesday_mid_break">n/a</span>, <span id="wednesday_break_end">n/a</span>-<span id="wednesday_hour_close">n/a</span></p>
                 <p>Jeudi: <span id="thursday_hour_open">n/a</span>-<span id="thursday_mid_break">n/a</span>, <span id="thursday_break_end">n/a</span>-<span id="thursday_hour_close">n/a</span></p>

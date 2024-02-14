@@ -41,14 +41,14 @@
             <article id="content_first">
                 <div class="content">
                     <?php
-                        $sql = "SELECT FirstText, SecondText, ThirdText from bodycar";
+                        $sql = "SELECT FirstText, FirstImage from bodycar";
                         $result = $conn->query($sql);
 
                         $row = $result->fetch_assoc();
 
                         echo "<p class='paragraph'>" . $row['FirstText'] . "</p>";
+                        echo "<img src='../../elements/images/pages/bodycar/" . $row['FirstImage'] . "' />";
                     ?>
-                    <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">
                     <button id="edit_button_text_second"><i class="material-icons">edit</i></button>
@@ -58,14 +58,14 @@
             <article id="content_second">
                 <div class="content_mirror">
                     <?php
-                        $sql = "SELECT FirstText, SecondText, ThirdText from bodycar";
+                        $sql = "SELECT SecondText, SecondImage from bodycar";
                         $result = $conn->query($sql);
 
                         $row = $result->fetch_assoc();
 
                         echo "<p class='paragraph'>" . $row['SecondText'] . "</p>";
+                        echo "<img src='../../elements/images/pages/bodycar/" . $row['SecondImage'] . "' />";
                     ?>
-                    <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">
                     <button id="edit_button_text_second"><i class="material-icons">edit</i></button>
@@ -75,14 +75,14 @@
             <article id="content_third">
                 <div class="content">
                     <?php
-                        $sql = "SELECT FirstText, SecondText, ThirdText from bodycar";
+                        $sql = "SELECT ThirdText, ThirdImage from bodycar";
                         $result = $conn->query($sql);
 
                         $row = $result->fetch_assoc();
 
                         echo "<p class='paragraph'>" . $row['ThirdText'] . "</p>";
+                        echo "<img src='../../elements/images/pages/bodycar/" . $row['ThirdImage'] . "' />";
                     ?>
-                    <img src="../../elements/images/testTexture.png">
                 </div>
                 <div class="edition_button_admin">
                     <button id="edit_button_text_second"><i class="material-icons">edit</i></button>

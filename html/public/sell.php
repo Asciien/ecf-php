@@ -31,14 +31,15 @@
 
         <main>
             <div class="filters">
-                <div id="prix_filter">
-                    <label for="prix">Prix</label>
-                    <input type="range" min="100" max="10000" value="50" step="100" class="slider" id="prix">
-                </div>
+                <label for="prix">Prix</label>
+                <input type="range" value="1" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
+                <output>1</output>
                 <label for="prix">Kilométrage</label>
-                <input type="range" min="1" max="100" value="50" class="slider" id="kilometrage">
+                <input type="range" value="1" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
+                <output>1</output>
                 <label for="prix">Année de mise en circulation</label>
-                <input type="range" min="1" max="100" value="50" class="slider" id="circulation">
+                <input type="range" value="1" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
+                <output>1</output>
             </div>
             <div class="showcase">
                 <div class="case">

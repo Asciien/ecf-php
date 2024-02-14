@@ -78,8 +78,15 @@ main {
         padding-left: 40px;
         padding-right: 40px;
         padding-top: 10px;
-        
+
+        output {
+            font-size: large;
+            color: white;
+            font-weight: bold;
+            text-align: end;
+        }  
     }
+    
     label {
         font-size: 15px;
         color: white;

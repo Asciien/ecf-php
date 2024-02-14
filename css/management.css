@@ -718,6 +718,7 @@ nav {
 
 .hours {
     display: none;      /*Valeur par défaut*/
+    flex-direction: column;
     
     .hours_fields {
         display: flex;
@@ -742,6 +743,16 @@ nav {
         /* padding: 20px; */
         font-weight: bold;
         font-family: sans-serif;
+    }
+
+    #hours_submit {
+        width: 40%;
+        align-self: center;
+        height: 40px;
+        background-color: #459345;
+        color: white;
+        font-size: large;
+        font-weight: bold;
     }
 }
     @media only screen and (max-width: 850px) {

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS main.users (
 );
 
 CREATE TABLE IF NOT EXISTS main.opinion (
-	id INT AUTO_INCREMENT PRIMARY KEY FIRST;
+	id INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(30) NOT NULL,
     Rating SMALLINT(1) NOT NULL,
     Commentary TINYTEXT NOT NULL,
@@ -35,22 +35,28 @@ CREATE TABLE IF NOT EXISTS main.openhours (
 
 INSERT INTO openhours (Day, MorningOpeningTime, MorningClosingTime, AfternoonOpeningTime, AfternoonClosingTime)
 VALUES 
-('Lundi', '08:00:00', '12:00:00', '13:30:00', '18:00:00'),
-('Mardi', '08:00:00', '12:00:00', '13:30:00', '18:00:00'),
-('Mercredi', '08:00:00', '12:00:00', '13:30:00', '18:00:00'),
-('Jeudi', '08:00:00', '12:00:00', '13:30:00', '18:00:00'),
-('Vendredi', '08:00:00', '12:00:00', '13:30:00', '18:00:00'),
-('Samedi', '08:00:00', '12:00:00', '13:30:00', '18:00:00'),
-('Dimanche', '08:00:00', '12:00:00', '13:30:00', '18:00:00');
+('Lundi', '08:00', '12:00', '13:30', '18:00'),
+('Mardi', '08:00', '12:00', '13:30', '18:00'),
+('Mercredi', '08:00', '12:00', '13:30', '18:00'),
+('Jeudi', '08:00', '12:00', '13:30', '18:00'),
+('Vendredi', '08:00', '12:00', '13:30', '18:00'),
+('Samedi', '08:00', '12:00', '13:30', '18:00'),
+('Dimanche', '08:00', '12:00', '13:30', '18:00');
 
 CREATE TABLE IF NOT EXISTS main.repair (
 	FirstText TEXT NOT NULL,
     SecondText TEXT NOT NULL,
-    ThirdText TEXT NOT NULL
+    ThirdText TEXT NOT NULL,
+    FirstImage VARCHAR(255),
+    SecondImage VARCHAR(255),
+    ThirdImage VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS main.bodycar (
 	FirstText TEXT NOT NULL,
     SecondText TEXT NOT NULL,
-    ThirdText TEXT NOT NULL
+    ThirdText TEXT NOT NULL,
+    FirstImage VARCHAR(255),
+    SecondImage VARCHAR(255),
+    ThirdImage VARCHAR(255)
 );
