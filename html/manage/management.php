@@ -50,48 +50,48 @@
                 <div id="repair_page">
                     <div class="edition">
                         <?php
-                            $sql = "SELECT FirstText, SecondText, ThirdText from repair";
+                            $sql = "SELECT FirstText, SecondText, ThirdText, FirstImage, SecondImage, ThirdImage from repair";
                             $result = $conn->query($sql);
-                            $row = $result->fetch_assoc();
+                            $row_repair = $result->fetch_assoc();
                         ?>
                         <div class="content">
-                            <textarea><?php echo $row['FirstText']; ?></textarea>
-                            <img src="../../elements/images/testTexture.png">
-                            <button class="image_change" id="image_change_first">Changer l'image</button>
+                            <textarea><?php echo $row_repair['FirstText']; ?></textarea>
+                            <img src="<?php echo '../../elements/images/pages/repair/' . $row_repair['FirstImage']; ?>" />
+                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="repair_image_change_first"></button>
                         </div>
                         <div class="content">
-                            <textarea><?php echo $row['SecondText']; ?></textarea>
-                            <img src="../../elements/images/testTexture.png">
-                            <button class="image_change" id="image_change_first">Changer l'image</button>
+                            <textarea><?php echo $row_repair['SecondText']; ?></textarea>
+                            <img src="<?php echo '../../elements/images/pages/repair/' . $row_repair['SecondImage']; ?>" />
+                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="repair_image_change_second"></button>
                         </div>
                         <div class="content">
-                            <textarea><?php echo $row['ThirdText']; ?></textarea>
-                            <img src="../../elements/images/testTexture.png">
-                            <button class="image_change" id="image_change_first">Changer l'image</button>
+                            <textarea><?php echo $row_repair['ThirdText']; ?></textarea>
+                            <img src="<?php echo '../../elements/images/pages/repair/' . $row_repair['ThirdImage']; ?>" />
+                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="repair_image_change_third"></button>
                         </div>
                     </div>
                 </div>
                 <div id="bodycar_page">
                     <div class="edition">
                         <?php
-                            $sql = "SELECT FirstText, SecondText, ThirdText from bodycar";
+                            $sql = "SELECT FirstText, SecondText, ThirdText, FirstImage, SecondImage, ThirdImage from bodycar";
                             $result = $conn->query($sql);
-                            $row = $result->fetch_assoc();
+                            $row_bodycar = $result->fetch_assoc();
                         ?>
                         <div class="content">
-                            <textarea><?php echo $row['FirstText']; ?></textarea>
-                            <img src="../../elements/images/testTexture.png">
-                            <button class="image_change" id="image_change_first">Changer l'image</button>
+                            <textarea><?php echo $row_bodycar['FirstText']; ?></textarea>
+                            <img src="<?php echo '../../elements/images/pages/bodycar/' . $row_bodycar['FirstImage']; ?>" />
+                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_first"></button>
                         </div>
                         <div class="content">
-                            <textarea><?php echo $row['SecondText']; ?></textarea>
-                            <img src="../../elements/images/testTexture.png">
-                            <button class="image_change" id="image_change_first">Changer l'image</button>
+                            <textarea><?php echo $row_bodycar['SecondText']; ?></textarea>
+                            <img src="<?php echo '../../elements/images/pages/bodycar/' . $row_bodycar['SecondImage']; ?>" />
+                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_second"></button>
                         </div>
                         <div class="content">
-                            <textarea><?php echo $row['ThirdText']; ?></textarea>
-                            <img src="../../elements/images/testTexture.png">
-                            <button class="image_change" id="image_change_first">Changer l'image</button>
+                            <textarea><?php echo $row_bodycar['ThirdText']; ?></textarea>
+                            <img src="<?php echo '../../elements/images/pages/bodycar/' . $row_bodycar['ThirdImage']; ?>" />
+                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_third"></button>
                         </div>
                     </div>
                 </div>
@@ -100,137 +100,67 @@
             <div class="opinion">
                 <h2>Avis en attente d'autorisation</h2>
                 <div class="opinion_filter">
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
+                    <?php
+                    // Sélectionne tous les avis avec IsAllowed égal à 0
+                    $sql = "SELECT * FROM opinion WHERE IsAllowed = 0";
+                    $result = $conn->query($sql);
+
+                    // Parcours les avis et les affiche dans le HTML
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                    ?>
+                            <div class="opinion_tile">
+                                <div class="opinion_header">
+                                    <p class="name"><?php echo $row['Name']; ?></p>
+                                    <div class="rating">
+                                        <p class="rate"><?php echo $row['Rating']; ?></p>
+                                        <i id="star" class='material-icons'>grade</i>
+                                    </div>
+                                </div>
+                                <div class="opinion_main">
+                                    <p class="message"><?php echo $row['Commentary']; ?></p>
+                                </div>
+                                <div class="opinion_button">
+                                    <!-- Garder les boutons inchangés -->
+                                    <button class="opinion_button_choice"><i class="large material-icons">check</i></button>
+                                    <button class="opinion_button_choice"><i class="large material-icons">clear</i></button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                        <div class="opinion_button">
-                            <button class="opinion_button_choice"><i class="large material-icons">check</i></button>
-                            <button class="opinion_button_choice"><i class="large material-icons">clear</i></button>
-                        </div>
-                    </div>
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
-                            </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                        <div class="opinion_button">
-                            <button class="opinion_button_choice"><i class="large material-icons">check</i></button>
-                            <button class="opinion_button_choice"><i class="large material-icons">clear</i></button>
-                        </div>
-                    </div>
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
-                            </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                        <div class="opinion_button">
-                            <button class="opinion_button_choice"><i class="large material-icons">check</i></button>
-                            <button class="opinion_button_choice"><i class="large material-icons">clear</i></button>
-                        </div>
-                    </div>
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
-                            </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                        <div class="opinion_button">
-                            <button class="opinion_button_choice"><i class="large material-icons">check</i></button>
-                            <button class="opinion_button_choice"><i class="large material-icons">clear</i></button>
-                        </div>
-                    </div>
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
-                            </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                        <div class="opinion_button">
-                            <button class="opinion_button_choice"><i class="large material-icons">check</i></button>
-                            <button class="opinion_button_choice"><i class="large material-icons">clear</i></button>
-                        </div>
-                    </div>
+                    <?php
+                        }
+                    } 
+                    ?>
                 </div>
                 <h2>Avis en ligne</h2>
                 <div class="opinion_online">
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
+                    <?php
+                    // Sélectionne tous les avis avec IsAllowed égal à 1
+                    $sql = "SELECT * FROM opinion WHERE IsAllowed = 1";
+                    $result = $conn->query($sql);
+
+                    // Parcours les avis et les affiche dans le HTML
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                    ?>
+                            <div class="opinion_tile">
+                                <div class="opinion_header">
+                                    <p class="name"><?php echo $row['Name']; ?></p>
+                                    <div class="rating">
+                                        <p class="rate"><?php echo $row['Rating']; ?></p>
+                                        <i id="star" class='material-icons'>grade</i>
+                                    </div>
+                                </div>
+                                <div class="opinion_main">
+                                    <p class="message"><?php echo $row['Commentary']; ?></p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                    </div>
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
-                            </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                    </div>
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
-                            </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                    </div>
-                    <div class="opinion_tile">
-                        <div class="opinion_header">
-                            <p class="name">n/a</p>
-                            <div class="rating">
-                                <p class="rate">n/a</p>
-                                <i id="star" class='material-icons'>grade</i>
-                            </div>
-                        </div>
-                        <div class="opinion_main">
-                            <p class="message">n/a</p>
-                        </div>
-                    </div>
+                    <?php
+                        }
+                    } else {
+                        // Affiche un message si aucun avis n'est trouvé
+                        echo "<p>Aucun avis disponible pour le moment.</p>";
+                    }
+                    ?>
                 </div>
                 <h2>Ajouter un avis</h2>
                 <div class="opinion_add">
@@ -303,20 +233,39 @@
             </div>
             <div class="contact">
                 <div class="contact_list">
-                    <div class="contact_case">
-                        <div class="contact_informations">
-                            <div class="contact_names">
-                                <p class="prénom">John</p>
-                                <p class="nom">Doe</p>
-                            </div>
-                            <div class="contact_ways">
-                                <p class="mail">mail.example@parrot.fr</p>
-                                <p class="tel">0645878424</p>
-                            </div>
-                        </div>
-                        <p class="message">n/a</p>
-                        <button class="contact_delete" id="contact_delete"><i class="large material-icons">delete_forever</i></button>
-                    </div>
+                    <?php
+                    // Connexion à la base de données et récupération des contacts
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT ContactID, FirstName, Name, Email, Phone, Message FROM contact";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        // Afficher chaque contact dans un bloc HTML
+                        while($row = $result->fetch_assoc()) {
+                            echo '<div class="contact_case">';
+                            echo '<div class="contact_informations">';
+                            echo '<div class="contact_names">';
+                            echo '<p class="prénom">' . $row["FirstName"] . '</p>';
+                            echo '<p class="nom">' . $row["Name"] . '</p>';
+                            echo '</div>';
+                            echo '<div class="contact_ways">';
+                            echo '<p class="mail">' . $row["Email"] . '</p>';
+                            echo '<p class="tel">' . $row["Phone"] . '</p>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '<p class="message">' . $row["Message"] . '</p>';
+                            echo '<button class="contact_delete" data-contact-id="' . $row["ContactID"] . '"><i class="large material-icons">delete_forever</i></button>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "<p class='no_contact'>Aucun contact trouvé.</p>";
+                    }
+                    $conn->close();
+                    ?>
                 </div>
             </div>
             <div class="sells">
@@ -455,6 +404,7 @@
             </div>
         </main>
         <script src="../../js/management.js"></script>
+        <script src="../../js/manage_contact.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </body>
 </html>

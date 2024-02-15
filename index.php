@@ -4,6 +4,7 @@
 
         <!--Head informations-->
         <title>Garage V.Parrot</title>
+        <link rel="icon" href="elements/images/icon.png" type="image/x-icon">
         <meta charset="utf-8">
         <meta name="author" content="Raphaël Quinchon">
         <meta name="description" content="Garage V.Parrot | Mecanique, réparation, carrosserie, ventes d'occasion">
@@ -64,60 +65,56 @@
             </div>
 
 
-            <!-- Contact module in main page-->
+            <!-- Contact module in main page -->
             <div id="contact_tile">
-                <h2>Contactez nous dès maintenant</h2>
+                <h2>Contactez-nous dès maintenant</h2>
                 <div id="form_fields">
                     <?php
+                    // Vérifie si le formulaire a été soumis et que les champs requis sont définis dans $_POST
                     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['firstname'])) {
-                        // Le formulaire a été soumis, afficher un message de confirmation
-                        echo "<p>Votre message a été envoyé avec succès !</p>";
+
+                        // Préparer et exécuter la requête SQL pour insérer les données dans la table "contact"
+                        $sql = "INSERT INTO contact (FirstName, Name, Email, Phone, Message) VALUES (?, ?, ?, ?, ?)";
+                        $stmt = $conn->prepare($sql);
+
+                        // Vérifie si la préparation de la requête a réussi
+                        if ($stmt === false) {
+                            die("Erreur de préparation de la requête: " . $conn->error);
+                        }
+
+                        // Récupérer les données du formulaire
+                        $firstName = $_POST['firstname'];
+                        $name = $_POST['name'];
+                        $email = $_POST['email'];
+                        $phone = $_POST['phone'];
+                        $message = $_POST['message'];
+
+                        // Lier les paramètres et exécuter la requête SQL
+                        $stmt->bind_param("sssss", $firstName, $name, $email, $phone, $message);
+                        if ($stmt->execute()) {
+                            echo "<script>alert('Message envoyé !');</script>";  // Afficher une alerte JavaScript lorsque le formulaire est soumis avec succès
+                            echo "<p>Votre message a été envoyé avec succès !</p>";
+                        } else {
+                            echo "<script>alert('Erreur lors de l'envoi du message: " . $conn->error . "');</script>"; // Afficher une alerte JavaScript en cas d'erreur
+                        }
+
+                        // Fermer la requête et la connexion à la base de données
+                        $stmt->close();
+                        
                     } else {
-                        // Le formulaire n'a pas encore été soumis, afficher le formulaire
-                    ?>
-                    <form method="post">
-                        <input id="name_contact_form" name="firstname" type="text" placeholder="Votre nom" maxlength="30" required>
-                        <input id="lastname_contact_form" name="name" type="text" placeholder="Votre prénom" maxlength="30" required>
-                        <input id="email_contact_form" name="email" type="email" placeholder="Votre Email" maxlength="255" required>
-                        <input id="num_contact_form" name="phone" type="tel" placeholder="Votre numéro de téléphone" maxlength="20" required>
-                        <textarea id="message_contact_form" name="message" placeholder="Votre message" maxlength="1024" required></textarea>
-                        <input type="submit" value="Envoyer">
-                    </form>
-                    <?php
-                    }
-                    ?>
+                        // Afficher le formulaire
+                        ?>
+                        <form method="post">
+                            <input id="name_contact_form" name="firstname" type="text" placeholder="Votre nom" maxlength="30" required>
+                            <input id="lastname_contact_form" name="name" type="text" placeholder="Votre prénom" maxlength="30" required>
+                            <input id="email_contact_form" name="email" type="email" placeholder="Votre Email" maxlength="255" required>
+                            <input id="num_contact_form" name="phone" type="tel" placeholder="Votre numéro de téléphone" maxlength="20" required>
+                            <textarea id="message_contact_form" name="message" placeholder="Votre message" maxlength="1024" required></textarea>
+                            <input type="submit" value="Envoyer">
+                        </form>
+                    <?php } ?>
                 </div>
             </div>
-
-            <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-                    $firstName = $_POST['firstname']; //  <- Début du trairement du formulaire ici 
-                    $name = $_POST['name'];
-                    $email = $_POST['email'];
-                    $phone = $_POST['phone'];
-                    $message = $_POST['message'];
-
-                    //Connexion à la db déjà établi plus haut
-
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    $sql = "INSERT INTO contact (FirstName, Name, Email, Phone, Message) VALUES (?, ?, ?, ?, ?)";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("sssss", $firstName, $name, $email, $phone, $message);
-
-                    if ($stmt->execute()) {
-                        echo "<script>alert('Message envoyé !');</script>";  //On envoie une alert box quand le formulaire est envoyé
-                    } else {
-                        echo "<script>alert('Erreur lors de l\'envoi du message: " . $conn->error . "');</script>"; //ou non avec erreur
-                    }
-
-                    $stmt->close(); //on ferme la requète 
-                }
-            ?>
-  
 
             <!-- Opinion module in main page -->
             <div id="opinion">
@@ -148,44 +145,44 @@
                 </div>
 
                 <div id="opinion_popup">
-                <h2>Laissez votre avis</h2>
-                <i id="opinion_close_button" class='material-icons'>close</i>
-                <form method="post" id="opinion_form">
-                    <input id="opinion_name" name="opinion_name" placeholder="Prénom" type="text" maxlength="32" required>
-                    <textarea name="opinion_message" placeholder="Votre message" maxlength="240" required></textarea>
-                    <label for="opinion_rating">Note</label>
-                    <output>1</output>
-                    <input type="range" name="opinion_rating" id="opinion_rating" min="1" max="5" value="1" step="1" oninput="this.previousElementSibling.value = this.value">
-                    <button type="submit" id="opinion_send">Envoyer</button>
-                </form>
-            </div>
+                    <h2>Laissez votre avis</h2>
+                    <i id="opinion_close_button" class='material-icons'>close</i>
+                    <form method="post" id="opinion_form">
+                        <input id="opinion_name" name="opinion_name" placeholder="Prénom" type="text" maxlength="32" required>
+                        <textarea name="opinion_message" placeholder="Votre message" maxlength="240" required></textarea>
+                        <label for="opinion_rating">Note</label>
+                        <output>1</output>
+                        <input type="range" name="opinion_rating" id="opinion_rating" min="1" max="5" value="1" step="1" oninput="this.previousElementSibling.value = this.value">
+                        <button type="submit" id="opinion_send">Envoyer</button>
+                    </form>
+                </div>
 
-            <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['opinion_name'])) {
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['opinion_message'])) {
                     // Récupérer les données soumises par le formulaire
                     $name = $_POST['opinion_name'];
                     $rating = $_POST['opinion_rating'];
                     $commentary = $_POST['opinion_message'];
-                
-                    // Connexion à la base de données
-                
+
                     // Préparer la requête SQL pour insérer les données dans la table "Opinion"
                     $sql = "INSERT INTO opinion (Name, Rating, Commentary, IsAllowed) VALUES (?, ?, ?, 0)";
                     $stmt = $conn->prepare($sql);
-                
+
                     // Associer les valeurs aux paramètres de la requête
                     $stmt->bind_param("sis", $name, $rating, $commentary);
-                
-                    if ($stmt->execute()) { // Envoie de la requête
-                        echo "Les informations ont été envoyées avec succès dans la table 'Opinion'.";
+
+                    if ($stmt->execute()) {
+                        echo "<script>alert('Message envoyé !');</script>";  // Afficher une alerte JavaScript lorsque le formulaire est soumis avec succès
                     } else {
-                        echo "Erreur lors de l'envoi des informations dans la table 'Opinion': " . $conn->error;
+                        echo "<script>alert('Erreur lors de l\'envoi du message: " . $conn->error . "');</script>"; // Afficher une alerte JavaScript en cas d'erreur
                     }
-                
+
                     // Fermer la requête
                     $stmt->close();
+
+                    //La connexion reste ouverte pour les heures ci-dessous
                 }
-            ?>
+                ?>
             </div>
         </main>
 
@@ -198,7 +195,12 @@
                 <?php
             
                     // Requête SQL pour récupérer les informations de la table openhours
-                    $sql = "SELECT Day, IsOpen, MorningOpeningTime, MorningClosingTime, AfternoonOpeningTime, AfternoonClosingTime FROM openhours";
+                    $sql = "SELECT Day, IsOpen,
+                    DATE_FORMAT(MorningOpeningTime, '%H:%i') AS MorningOpeningTime,
+                    DATE_FORMAT(MorningClosingTime, '%H:%i') AS MorningClosingTime,
+                    DATE_FORMAT(AfternoonOpeningTime, '%H:%i') AS AfternoonOpeningTime,
+                    DATE_FORMAT(AfternoonClosingTime, '%H:%i') AS AfternoonClosingTime
+                    FROM openhours;";
                     $result = $conn->query($sql);
                     
                     // Vérifier si des résultats sont retournés

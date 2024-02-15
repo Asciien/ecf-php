@@ -31,7 +31,7 @@
         <header>
             <ul>
                 <li><a href="../../index.php"><img id="logo" src="../../elements/images/header/logo.svg" alt="logo-garage"></a></li>
-                <li><a href="html/manage/login.php"><img id="login" src="../../elements/images/header/login.svg" alt="connexion-icon"></a></li>
+                <li><a href="../../html/manage/login.php"><img id="login" src="../../elements/images/header/login.svg" alt="connexion-icon"></a></li>
             </ul>
             <div id="phone">
                 <a class="waves-effect waves-light btn-small" href="tel:0234567890"><i class="material-icons left">phone</i>02 34 56 78 90</a>
@@ -93,17 +93,48 @@
 
         <footer>
             <div id="hours">
-                <p>Lundi: <span id="monday_hour_open">n/a</span>-<span id="monday_mid_break">n/a</span>, <span id="monday_break_end">n/a</span>-<span id="monday_hour_close">n/a</span></p>
-                <p>Mardi: <span id="tuesday_hour_open">n/a</span>-<span id="tuesday_mid_break">n/a</span>, <span id="tuesday_break_end">n/a</span>-<span id="tuesday_hour_close">n/a</span></p>
-                <p>Mercredi: <span id="wednesday_hour_open">n/a</span>-<span id="wednesday_mid_break">n/a</span>, <span id="wednesday_break_end">n/a</span>-<span id="wednesday_hour_close">n/a</span></p>
-                <p>Jeudi: <span id="thursday_hour_open">n/a</span>-<span id="thursday_mid_break">n/a</span>, <span id="thursday_break_end">n/a</span>-<span id="thursday_hour_close">n/a</span></p>
-                <p>Vendredi: <span id="friday_hour_open">n/a</span>-<span id="friday_mid_break">n/a</span>, <span id="friday_break_end">n/a</span>-<span id="friday_hour_close">n/a</span></p>
-                <p>Samedi: <span id="saturday_hour_open">n/a</span>-<span id="saturday_mid_break">n/a</span>, <span id="saturday_break_end">n/a</span>-<span id="saturday_hour_close">n/a</span></p>
-                <p>Dimanche: <span id="sunday_hour_open">n/a</span>-<span id="sunday_mid_break">n/a</span>, <span id="sunday_break_end">n/a</span>-<span id="sunday_hour_close">n/a</span></p>
+
+                
+                <?php
+
+                    // Requête SQL pour récupérer les informations de la table openhours
+                    $sql = "SELECT Day, IsOpen,
+                    DATE_FORMAT(MorningOpeningTime, '%H:%i') AS MorningOpeningTime,
+                    DATE_FORMAT(MorningClosingTime, '%H:%i') AS MorningClosingTime,
+                    DATE_FORMAT(AfternoonOpeningTime, '%H:%i') AS AfternoonOpeningTime,
+                    DATE_FORMAT(AfternoonClosingTime, '%H:%i') AS AfternoonClosingTime
+                    FROM openhours;";
+                    $result = $conn->query($sql);
+                    
+                    // Vérifier si des résultats sont retournés
+                    if ($result->num_rows > 0) {
+                        // Parcourir chaque ligne de résultat
+                        while($row = $result->fetch_assoc()) {
+                            // Afficher les informations selon le format demandé
+                            echo "<p>" . $row["Day"] . ":    ";
+                            
+                            if ($row["IsOpen"]) {
+                                // Jour ouvert
+                                echo $row["MorningOpeningTime"] . " - " . $row["MorningClosingTime"] . " & " . $row["AfternoonOpeningTime"] . " - " . $row["AfternoonClosingTime"];
+                            } else {
+                                // Jour fermé
+                                echo "Fermé";
+                            }
+                            
+                            echo "</p>";
+                        }
+                    } else {
+                        echo "Aucun résultat trouvé";
+                    }
+                    
+                    // Fermer la connexion à la base de données
+                    $conn->close();
+
+                ?>
+
+
             </div>
-            <div>
-                <a href="../../elements/images/credits.txt">Sources des images</a>
-            </div>
+            <a href="../../elements/images/credits.txt">Sources des images</a>
         </footer>
     </body>
 </html>

@@ -112,7 +112,7 @@ footer {
     :first-child {
         padding-top: 15px;
     }
-    :last-child {
+    #hours {
         padding-bottom: 15px;
     }
 }

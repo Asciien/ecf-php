@@ -58,6 +58,11 @@ header {
     border-radius: 20px;
     flex-direction: column;
 
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
     .inputs {
         width: 25vw;
         height: 30px;

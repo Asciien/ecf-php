@@ -120,13 +120,10 @@ nav {
         width: 30%;
     }
     .image_change {
-        width: 10%;
         align-self: center;
-        height: 50px;
         margin: 10px;
         border: darkgray solid 2px;
         font-size: small;
-        font-weight: bold;
         background: lightgray;
     }
     .save {
@@ -155,16 +152,6 @@ nav {
             }
             img {
                 width: auto;
-            }
-            .image_change {
-                width: auto;
-                align-self: center;
-                height: 50px;
-                margin: 10px;
-                border: darkgray solid 2px;
-                font-size: small;
-                font-weight: bold;
-                background: lightgray;        
             }
         }
     }
@@ -442,6 +429,15 @@ nav {
     display: none; /* Valeur par défaut */
 
     .contact_list {
+
+        .no_contact {
+            text-align: center;
+            margin-top: 150px;
+            font-size: larger;
+            font-weight: bold;
+            font-family: LouisGeorgeCafe;
+        }
+
         .contact_case {
             display: flex;
             justify-content: space-around;
@@ -473,6 +469,7 @@ nav {
                     margin-left: 15px;
                 }
             }
+
             
             .message {
                 width: 70%;
