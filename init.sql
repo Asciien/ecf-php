@@ -2,9 +2,11 @@ CREATE DATABASE IF NOT EXISTS main;
 
 CREATE TABLE IF NOT EXISTS main.users (
 	UserID INT AUTO_INCREMENT PRIMARY KEY,
-    Login VARCHAR(20) NOT NULL UNIQUE,
     Password VARCHAR(255) NOT NULL,
-    Role SMALLINT(1) NOT NULL
+    Role SMALLINT(1) NOT NULL,
+    Email varchar(255) NOT NULL,
+	Nom varchar(50) NOT NULL,
+	Prenom varchar(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS main.opinion (
@@ -60,3 +62,22 @@ CREATE TABLE IF NOT EXISTS main.bodycar (
     SecondImage VARCHAR(255),
     ThirdImage VARCHAR(255)
 );
+
+CREATE TABLE IF NOT EXISTS main.sell (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    name_model VARCHAR(100) NOT NULL,
+    price INT NOT NULL,
+    description TEXT NOT NULL,
+    kilometer INT NOT NULL,
+    color VARCHAR(25) NOT NULL,
+    date DATE NOT NULL,
+    horsepower INT(4) NOT NULL,
+    doors INT(2) NOT NULL,
+    places INT(2) NOT NULL,
+    fuel VARCHAR(25) NOT NULL,
+    transmission VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS main.sell_images {
+	id relation pour mettre id de sell
+}

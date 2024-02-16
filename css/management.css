@@ -259,6 +259,8 @@ nav {
         margin-bottom: 20px;
         margin-top: 32px;
         align-items: center;
+        width: 100%;
+
 
         .input_name {
             height: 34px;
@@ -285,6 +287,7 @@ nav {
             height: 150px;
             margin-top: 15px;
             font-size: large;
+            resize: none;
         }
         .validate {
             background-color: #5ca75c;
@@ -373,6 +376,10 @@ nav {
     display: none;      /*Valeur par défaut*/
 
     .users_list {
+        height: 500px;
+        overflow-y: scroll;
+        border-bottom: black solid 1px;
+
         .user_info {
             border: black 2px solid;
             margin-top: 10px;
@@ -420,6 +427,46 @@ nav {
                 }
             }
         }   
+    }
+    .user_add {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #e1dbdb;
+
+        h2 {
+            font-family: LouisGeorgeCafe;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        
+            .create_user_names {
+                display: flex;
+            }
+            .user_create_input {
+                height: 25px;
+            }
+            .create_user_login {
+                display: flex;
+                flex-direction: column;
+                margin: 15px;
+            }
+            select {
+                width: 50%;
+            }
+            .save_user {
+                min-height: 30px;
+                margin-top: 10px;
+                color: white;
+                background-color: #479247;
+                font-size: large;
+                font-weight: bold;
+                border: none;
+                margin-bottom: 50px;
+            }
+        }
     }
 }
 
@@ -750,6 +797,10 @@ nav {
         color: white;
         font-size: large;
         font-weight: bold;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
     }
 }
     @media only screen and (max-width: 850px) {

@@ -49,53 +49,86 @@
                 </div>
                 <div id="repair_page">
                     <div class="edition">
-                        <?php
-                            $sql = "SELECT FirstText, SecondText, ThirdText, FirstImage, SecondImage, ThirdImage from repair";
-                            $result = $conn->query($sql);
-                            $row_repair = $result->fetch_assoc();
-                        ?>
-                        <div class="content">
-                            <textarea><?php echo $row_repair['FirstText']; ?></textarea>
-                            <img src="<?php echo '../../elements/images/pages/repair/' . $row_repair['FirstImage']; ?>" />
-                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="repair_image_change_first"></button>
-                        </div>
-                        <div class="content">
-                            <textarea><?php echo $row_repair['SecondText']; ?></textarea>
-                            <img src="<?php echo '../../elements/images/pages/repair/' . $row_repair['SecondImage']; ?>" />
-                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="repair_image_change_second"></button>
-                        </div>
-                        <div class="content">
-                            <textarea><?php echo $row_repair['ThirdText']; ?></textarea>
-                            <img src="<?php echo '../../elements/images/pages/repair/' . $row_repair['ThirdImage']; ?>" />
-                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="repair_image_change_third"></button>
-                        </div>
+                        <form action="../../php/repair.php" method="post" enctype="multipart/form-data">
+                            <?php
+                                // Connexion à la base de données
+                                $servername = "localhost";
+                                $username = "root";
+                                $password = "isopropanol";
+                                $dbname = "main";
+
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                $sql = "SELECT FirstText, SecondText, ThirdText, FirstImage, SecondImage, ThirdImage FROM repair";
+                                $result = $conn->query($sql);
+                                $row_repair = $result->fetch_assoc();
+
+                                $uploadDir = "../../elements/images/pages/repair/";
+                            ?>
+                            <div class="content">
+                                <textarea name="firstText"><?php echo $row_repair['FirstText']; ?></textarea>
+                                <img src="<?php echo $uploadDir . $row_repair['FirstImage']; ?>" />
+                                <input type="file" accept="image/*" name="firstImage" onchange="previewImage(event)" class="image_change" id="repair_image_change_first">
+                            </div>
+                            <div class="content">
+                                <textarea name="secondText"><?php echo $row_repair['SecondText']; ?></textarea>
+                                <img src="<?php echo $uploadDir . $row_repair['SecondImage']; ?>" />
+                                <input type="file" accept="image/*" name="secondImage" onchange="previewImage(event)" class="image_change" id="repair_image_change_second">
+                            </div>
+                            <div class="content">
+                                <textarea name="thirdText"><?php echo $row_repair['ThirdText']; ?></textarea>
+                                <img src="<?php echo $uploadDir . $row_repair['ThirdImage']; ?>" />
+                                <input type="file" accept="image/*" name="thirdImage" onchange="previewImage(event)" class="image_change" id="repair_image_change_third">
+                            </div>
+                            <button type="submit" class="save" id="repair_save">Sauvegarder les changements</button>
+                        </form>
                     </div>
                 </div>
                 <div id="bodycar_page">
                     <div class="edition">
-                        <?php
-                            $sql = "SELECT FirstText, SecondText, ThirdText, FirstImage, SecondImage, ThirdImage from bodycar";
-                            $result = $conn->query($sql);
-                            $row_bodycar = $result->fetch_assoc();
-                        ?>
-                        <div class="content">
-                            <textarea><?php echo $row_bodycar['FirstText']; ?></textarea>
-                            <img src="<?php echo '../../elements/images/pages/bodycar/' . $row_bodycar['FirstImage']; ?>" />
-                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_first"></button>
-                        </div>
-                        <div class="content">
-                            <textarea><?php echo $row_bodycar['SecondText']; ?></textarea>
-                            <img src="<?php echo '../../elements/images/pages/bodycar/' . $row_bodycar['SecondImage']; ?>" />
-                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_second"></button>
-                        </div>
-                        <div class="content">
-                            <textarea><?php echo $row_bodycar['ThirdText']; ?></textarea>
-                            <img src="<?php echo '../../elements/images/pages/bodycar/' . $row_bodycar['ThirdImage']; ?>" />
-                            <input type="file" accept="image/*" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_third"></button>
-                        </div>
+                        <form action="../../php/bodycar.php" method="post" enctype="multipart/form-data">
+                            <?php
+                                // Connexion à la base de données
+                                $servername = "localhost";
+                                $username = "root";
+                                $password = "isopropanol";
+                                $dbname = "main";
+
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                $sql = "SELECT FirstText, SecondText, ThirdText, FirstImage, SecondImage, ThirdImage FROM bodycar";
+                                $result = $conn->query($sql);
+                                $row_bodycar = $result->fetch_assoc();
+
+                                $uploadDir = "../../elements/images/pages/bodycar/";
+                            ?>
+                            <div class="content">
+                                <textarea name="firstText"><?php echo $row_bodycar['FirstText']; ?></textarea>
+                                <img src="<?php echo $uploadDir . $row_bodycar['FirstImage']; ?>" />
+                                <input type="file" accept="image/*" name="firstImage" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_first">
+                            </div>
+                            <div class="content">
+                                <textarea name="secondText"><?php echo $row_bodycar['SecondText']; ?></textarea>
+                                <img src="<?php echo $uploadDir . $row_bodycar['SecondImage']; ?>" />
+                                <input type="file" accept="image/*" name="secondImage" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_second">
+                            </div>
+                            <div class="content">
+                                <textarea name="thirdText"><?php echo $row_bodycar['ThirdText']; ?></textarea>
+                                <img src="<?php echo $uploadDir . $row_bodycar['ThirdImage']; ?>" />
+                                <input type="file" accept="image/*" name="thirdImage" onchange="previewImage(event)" class="image_change" id="bodycar_image_change_third">
+                            </div>
+                            <button type="submit" class="save" id="bodycar_save">Sauvegarder les changements</button>
+                        </form>
                     </div>
                 </div>
-                <button class="save" id="pages_save">Sauvegarder les changements</button>
             </div>
             <div class="opinion">
                 <h2>Avis en attente d'autorisation</h2>
@@ -109,7 +142,7 @@
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                     ?>
-                            <div class="opinion_tile">
+                            <div class="opinion_tile" id="opinionTile_<?php echo $row['id']; ?>">
                                 <div class="opinion_header">
                                     <p class="name"><?php echo $row['Name']; ?></p>
                                     <div class="rating">
@@ -121,9 +154,14 @@
                                     <p class="message"><?php echo $row['Commentary']; ?></p>
                                 </div>
                                 <div class="opinion_button">
-                                    <!-- Garder les boutons inchangés -->
-                                    <button class="opinion_button_choice"><i class="large material-icons">check</i></button>
-                                    <button class="opinion_button_choice"><i class="large material-icons">clear</i></button>
+                                    <!-- Bouton d'approbation -->
+                                    <button id="approveButton_<?php echo $row['id']; ?>" class="opinion_button_choice" data-action="approve" data-opinion-id="<?php echo $row['id']; ?>">
+                                        <i class="large material-icons">check</i>
+                                    </button>
+                                    <!-- Bouton de désapprobation -->
+                                    <button id="disapproveButton_<?php echo $row['id']; ?>" class="opinion_button_choice" data-action="disapprove" data-opinion-id="<?php echo $row['id']; ?>">
+                                        <i class="large material-icons">clear</i>
+                                    </button>
                                 </div>
                             </div>
                     <?php
@@ -164,71 +202,71 @@
                 </div>
                 <h2>Ajouter un avis</h2>
                 <div class="opinion_add">
-                    <input class="input_name" id="input_name" placeholder="Nom" type="text" maxlength="32" required>
-                    <label for="prix">Note</label>
-                    <output>1</output>
-                    <input type="range" name="opinion_rating" id="opinion_rating" min="1" max="5" value="1" step="1" oninput="this.previousElementSibling.value = this.value">
-                    <textarea
-                        name="input_message" 
-                        placeholder="Message"
-                        maxlength="240"
-                        required></textarea>
-                    <input class="validate" type="submit" value="Enregistrer"></input>
+                    <form id="opinion_form" class="opinion_add">
+                        <input class="input_name" id="input_name" placeholder="Nom" type="text" maxlength="32" required>
+                        <label for="prix">Note</label>
+                        <output>1</output>
+                        <input type="range" name="opinion_rating" id="opinion_rating" min="1" max="5" value="1" step="1" oninput="this.previousElementSibling.value = this.value">
+                        <textarea name="input_message" id="input_message" placeholder="Message" maxlength="240" required></textarea>
+                        <input class="validate" type="submit" value="Enregistrer">
+                    </form>
                 </div>
             </div>
             <div class="users">
                 <div class="users_list">
-                    <div class="user_info">
-                        <div class="user_gestion">
-                            <button class="delete_user"><i class="large material-icons">delete_forever</i></button>
+                    <?php
+
+                        $sql = "SELECT UserID, Password, Role, Email, Nom, Prenom FROM users";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            // Boucler à travers chaque ligne de résultat
+                            while($row = $result->fetch_assoc()) {
+                                // Afficher les informations de chaque utilisateur dans une div répétée
+                                echo "<div class='user_info'>";
+                                echo "<div class='user_gestion'>";
+                                echo "<button class='delete_user'><i class='large material-icons'>delete_forever</i></button>";
+                                echo "</div>";
+                                echo "<div class='user_names'>";
+                                echo "<i id='person' class='material-icons'>person</i>";
+                                echo "<p>" . $row["Prenom"] . "</p>";
+                                echo "<p>" . $row["Nom"] . "</p>";
+                                echo "<p>Rôle: " . ($row["Role"] == 1 ? "Administrateur" : "Employé") . "</p>";
+                                echo "</div>";
+                                echo "<div class='login_info'>";
+                                echo "<p>" . $row["Email"] . "</p>";
+                                echo "<div class='password'>";
+                                echo "<input class='user_password' id='user_password_" . $row['UserID'] . "' name='user_password_" . $row["UserID"] . "' placeholder='Modifier le mot de passe' type='password' maxlength='32' required>";
+                                echo "<button class='save_password' data-user-id='" . $row["UserID"] . "'><i class='large material-icons'>done</i></button>";
+                                echo "</div>";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        } else {
+                            echo "Aucun utilisateur trouvé.";
+                        }
+
+                        // Fermeture de la connexion à la base de données
+                        $conn->close();
+                    ?>
+                </div>
+                <div class="user_add">
+                    <h2>Création utilisateur</h2>
+                    <form id="user_form" method="post">
+                        <div class="create_user_names">
+                            <input class="user_create_input" id="user_name" name="user_name" placeholder="Prénom" type="text" maxlength="32" required>
+                            <input class="user_create_input" id="user_lastname" name="user_lastname" placeholder="Nom" type="text" maxlength="32" required>
                         </div>
-                        <div class="user_names">
-                            <i id="person" class='material-icons'>person</i>
-                            <p>John(Prénom)</p>
-                            <p>Doe(Nom)</p>
+                        <div class="create_user_login">
+                            <input class="user_create_input" id="user_email" name="user_email" placeholder="Email" type="email" maxlength="60" required>
+                            <input class="user_create_input" id="user_password" name="user_password" placeholder="Mot de passe" type="password" maxlength="32" required>
                         </div>
-                        <div class="login_info">
-                            <p>email.example@parrot.fr</p>
-                            <div class="password">
-                                <input class="user_password" id="user_password" placeholder="Modifier le mot de passe" type="password" maxlength="32" required>
-                                <button class="save_password"><i class="large material-icons">done</i></button> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="user_info">
-                        <div class="user_gestion">
-                            <button class="delete_user"><i class="large material-icons">delete_forever</i></button>
-                        </div>
-                        <div class="user_names">
-                            <i id="person" class='material-icons'>person</i>
-                            <p>John(Prénom)</p>
-                            <p>Doe(Nom)</p>
-                        </div>
-                        <div class="login_info">
-                            <p>email.example@parrot.fr</p>
-                            <div class="password">
-                                <input class="user_password" id="user_password" placeholder="Modifier le mot de passe" type="password" maxlength="32" required>
-                                <button class="save_password"><i class="large material-icons">done</i></button> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="user_info">
-                        <div class="user_gestion">
-                            <button class="delete_user"><i class="large material-icons">delete_forever</i></button>
-                        </div>
-                        <div class="user_names">
-                            <i id="person" class='material-icons'>person</i>
-                            <p>John(Prénom)</p>
-                            <p>Doe(Nom)</p>
-                        </div>
-                        <div class="login_info">
-                            <p>email.example@parrot.fr</p>
-                            <div class="password">
-                                <input class="user_password" id="user_password" placeholder="Modifier le mot de passe" type="password" maxlength="32" required>
-                                <button class="save_password"><i class="large material-icons">done</i></button> 
-                            </div>
-                        </div>
-                    </div>
+                        <select id="role" name="role">
+                            <option value="employe">Employé</option>
+                            <option value="administrateur">Administrateur</option>
+                        </select>
+                        <button type="submit" class="save_user">Ajouter l'utilisateur</button> 
+                    </form>
                 </div>
             </div>
             <div class="contact">
@@ -305,8 +343,8 @@
                             <input class="vehicle_price" id="vehicle_price" placeholder="prix" type="number" required>
                         </div>
                         <div class="add_details">
-                            <input class="vehicle_km" id="vehicle_km" placeholder="Modele du véhicle" type="text">
-                            <input class="vehicle_color" id="vehicle_color" placeholder="Kilomètres" type="text">
+                            <input class="vehicle_km" id="vehicle_km" placeholder="Kilomètres" type="text">
+                            <input class="vehicle_color" id="vehicle_color" placeholder="Couleur" type="text">
                             <input class="vehicle_date" id="vehicle_date" placeholder="Mise en circulation" type="text">
                             <input class="vehicle_cv" id="vehicle_cv" placeholder="Chevaux" type="text">
                             <input class="vehicle_doors" id="vehicle_doors" placeholder="Nombre de portes" type="text">
@@ -323,88 +361,58 @@
                 </div>
             </div>
             <div class="hours">
-                <div class="hours_fields" id="monday">
-                    <p class="day">Lundi</p>
-                    <input type="checkbox" id="monday_open">
-                    <input type="time" id="monday_open_morning" name="monday_open_morning" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="monday_close_morning" name="monday_close_morning" class="checkbox">
-                    <p>&</p>
-                    <input type="time" id="monday_open_afternoon" name="monday_open_afternoon" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="monday_close_afternoon" name="monday_close_afternoon" class="checkbox">
-                </div>
-                <div class="hours_fields" id="tuesday">
-                    <p class="day">Mardi</p>
-                    <input type="checkbox" id="tuesday_open">
-                    <input type="time" id="tuesday_open_morning" name="tuesday_open_morning" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="tuesday_close_morning" name="tuesday_close_morning" class="checkbox">
-                    <p>&</p>
-                    <input type="time" id="tuesday_open_afternoon" name="tuesday_open_afternoon" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="tuesday_close_afternoon" name="tuesday_close_afternoon" class="checkbox">
-                </div>
-                <div class="hours_fields" id="wednesday">
-                    <p class="day">Mercredi</p>
-                    <input type="checkbox" id="wednesday_open">
-                    <input type="time" id="wednesday_open_morning" name="wednesday_open_morning" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="wednesday_close_morning" name="wednesday_close_morning" class="checkbox">
-                    <p>&</p>
-                    <input type="time" id="wednesday_open_afternoon" name="wednesday_open_afternoon" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="wednesday_close_afternoon" name="wednesday_close_afternoon" class="checkbox">
-                </div>
-                <div class="hours_fields" id="thursday">
-                    <p class="day">Jeudi</p>
-                    <input type="checkbox" id="thursday_open">
-                    <input type="time" id="thursday_open_morning" name="thursday_open_morning" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="thursday_close_morning" name="thursday_close_morning" class="checkbox">
-                    <p>&</p>
-                    <input type="time" id="thursday_open_afternoon" name="thursday_open_afternoon" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="thursday_close_afternoon" name="thursday_close_afternoon" class="checkbox">
-                </div>
-                <div class="hours_fields" id="friday">
-                    <p class="day">Vendredi</p>
-                    <input type="checkbox" id="friday_open">
-                    <input type="time" id="friday_open_morning" name="friday_open_morning" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="friday_close_morning" name="friday_close_morning" class="checkbox">
-                    <p>&</p>
-                    <input type="time" id="friday_open_afternoon" name="friday_open_afternoon" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="friday_close_afternoon" name="friday_close_afternoon" class="checkbox">
-                </div>
-                <div class="hours_fields" id="saturday">
-                    <p class="day">Samedi</p>
-                    <input type="checkbox" id="saturday_open">
-                    <input type="time" id="saturday_open_morning" name="saturday_open_morning" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="saturday_close_morning" name="saturday_close_morning" class="checkbox">
-                    <p>&</p>
-                    <input type="time" id="saturday_open_afternoon" name="saturday_open_afternoon" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="saturday_close_afternoon" name="saturday_close_afternoon" class="checkbox">
-                </div>
-                <div class="hours_fields" id="sunday">
-                    <p class="day">Dimanche</p>
-                    <input type="checkbox" id="sunday_open">
-                    <input type="time" id="sunday_open_morning" name="sunday_open_morning" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="sunday_close_morning" name="ssunday_close_morning" class="checkbox">
-                    <p>&</p>
-                    <input type="time" id="sunday_open_afternoon" name="sunday_open_afternoon" class="checkbox">
-                    <p> / </p>
-                    <input type="time" id="sunday_close_afternoon" name="sunday_close_afternoon" class="checkbox">
-                </div>
-                <button type="submit" id="hours_submit">Enregistrer</button>
+                <form method="post" id="openhours_form">
+                    <?php
+                        // Connexion à la base de données (à remplacer avec vos propres informations de connexion)
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "isopropanol";
+                        $dbname = "main";
+
+                        // Création de la connexion
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+
+                        // Requête pour récupérer les heures d'ouverture de la base de données
+                        $sql = "SELECT Day, IsOpen, MorningOpeningTime, MorningClosingTime, AfternoonOpeningTime, AfternoonClosingTime FROM openhours";
+                        $result = $conn->query($sql);
+
+                        // Vérification s'il y a des résultats
+                        if ($result->num_rows > 0) {
+                            // Parcourir les résultats de la requête
+                            while($row = $result->fetch_assoc()) {
+                                // Construire l'ID de l'élément HTML pour chaque jour
+                                $day_id = strtolower($row["Day"]);
+                                ?>
+                                <div class="hours_fields" id="<?php echo $day_id; ?>">
+                                    <p class="day"><?php echo $row["Day"]; ?></p>
+                                    <input type="checkbox" id="<?php echo $day_id; ?>_open" name="<?php echo $day_id; ?>_open" <?php if ($row["IsOpen"] == 1) echo "checked"; ?>>
+                                    <input type="time" id="<?php echo $day_id; ?>_open_morning" name="<?php echo $day_id; ?>_open_morning" class="checkbox" value="<?php echo $row["MorningOpeningTime"]; ?>">
+                                    <p> / </p>
+                                    <input type="time" id="<?php echo $day_id; ?>_close_morning" name="<?php echo $day_id; ?>_close_morning" class="checkbox" value="<?php echo $row["MorningClosingTime"]; ?>">
+                                    <p>&</p>
+                                    <input type="time" id="<?php echo $day_id; ?>_open_afternoon" name="<?php echo $day_id; ?>_open_afternoon" class="checkbox" value="<?php echo $row["AfternoonOpeningTime"]; ?>">
+                                    <p> / </p>
+                                    <input type="time" id="<?php echo $day_id; ?>_close_afternoon" name="<?php echo $day_id; ?>_close_afternoon" class="checkbox" value="<?php echo $row["AfternoonClosingTime"]; ?>">
+                                </div>
+                                <?php
+                            }
+                        } else {
+                            echo "Erreur de résultat";
+                        }
+                        $conn->close();
+                    ?>
+                    <!-- Bouton de soumission du formulaire -->
+                    <button type="submit" name="submit" id="hours_submit">Enregistrer</button>
+                </form>
             </div>
         </main>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="../../js/opinion.js"></script>
+        <script src="../../js/addopinion.js"></script>
+        <script src="../../js/hours.js"></script>
         <script src="../../js/management.js"></script>
         <script src="../../js/manage_contact.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="../../js/updatepassword.js"></script>
+        <script src="../../js/adduser.js"></script>
     </body>
 </html>
