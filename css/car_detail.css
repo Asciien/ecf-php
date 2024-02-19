@@ -1,0 +1,157 @@
+/*---   Fonts Declaration   ---*/
+@font-face {
+    font-family: "LouisGeorgeCafe";
+    src: url(../elements/font/Louis_George_Cafe.ttf);
+}
+@font-face {
+    font-family: "Quicksand";
+    src: url(../elements/font/Quicksand_Book.otf);
+}
+
+/*---   Body   ---*/
+body {
+    background-color: #4C5278;
+    position: absolute;
+    width: 100%;
+}
+
+
+/*   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*---   Header Elements   ---*/
+header {
+    height: 100px;
+    width: 100%;
+    background-color: #2C388E;
+    position: fixed;
+
+    ul {
+        height: 100px; 
+        width: 100%; 
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        
+    }
+
+    #login {
+        height: 50px;
+        filter: invert(1);
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #logo {
+        height: 60px;
+        filter: invert(1);    
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #phone {
+        display: flex;
+        justify-content: center;
+
+        a {
+            width: 100%;
+        }
+    }
+}
+
+
+/* Main */
+
+
+main {
+    margin-top: 151px;
+
+    .vehicle_model {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-left: 15px;
+    }
+    .price {
+        font-size: 25px;
+        font-weight: bold;
+        text-align: right;
+        margin-right: 25px;
+    }
+    p {
+        color: white;
+    }
+    .images {
+        display: flex;
+        overflow-x: scroll;
+        background-color: #6e6eb4;
+        justify-content: center;
+        min-height: 350px;
+
+        img {
+            border-style: none;
+            min-width: 30%;
+            max-width: 30%;
+            padding: 20px;
+        }
+    }
+    .details {
+        display: flex;
+        justify-content: space-evenly;
+
+        .detail_infos {
+            border-left: white 1px solid;
+            padding-left: 10px;
+        }
+    }
+    .description {
+        text-align: center;
+        padding: 25px;
+        border-top: white solid 1px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    main {
+        .images {
+            display: flex;
+            overflow-x: scroll;
+            background-color: #6e6eb4;
+            flex-direction: column;
+            align-content: center;
+            flex-wrap: wrap;
+        
+            img {
+                border-style: none;
+                min-width: 30%;
+                max-width: 90%;
+                padding: 20px;
+            }
+        }
+    }
+}
+
+
+
+
+
+/* Screen Adaptation */
+
+/*---   Footer Elements   ---*/
+footer {
+    background-color: #2C388E;
+    text-align: center;
+
+    p {
+        color: white;
+        margin: 0;
+        font-style: quicksand;
+        font-size: 18px;
+    }
+    :first-child {
+        padding-top: 15px;
+    }
+    #hours {
+        padding-bottom: 15px;
+    }
+}

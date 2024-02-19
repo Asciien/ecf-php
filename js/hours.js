@@ -1,11 +1,13 @@
 $(document).ready(function(){
     $('#openhours_form').submit(function(e){
         e.preventDefault(); // Empêche le comportement par défaut du formulaire
-        var formData = $(this).serialize(); // Récupère les données du formulaire
+        var formData = $('#openhours_form').serialize(); // Récupère les données du formulaire
         $.ajax({
             type: 'POST',
-            url: '../../php/hours.php', // Chemin vers le fichier PHP
+            url: '../../php/hours.php', // Chemin vers le PHP
             data: formData,
+            dataType: 'json', // Ajout de cette ligne
+            contentType: 'application/x-www-form-urlencoded', // Ajout de cette ligne
             success: function(response){
                 alert('Les informations ont été mises à jour avec succès.');
             },

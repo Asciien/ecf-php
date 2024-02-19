@@ -1,18 +1,15 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Connexion à la base de données
-    $servername = "localhost";
-    $username = "root";
-    $password = "isopropanol";
-    $dbname = "main";
-
+    // Informations de connexion
+    include('../config.php');
+        
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Récupération des valeurs du formulaire
+    // Récupération les infos du formulaire 
     $firstText = $_POST['firstText'];
     $secondText = $_POST['secondText'];
     $thirdText = $_POST['thirdText'];
@@ -22,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_FILES[$imageField]['size'] > 0) {
             $uploadFile = $uploadDir . basename($_FILES[$imageField]['name']);
             
-            // Suppression de l'ancienne image si elle existe
+            // Suppression de l'ancienne image
             $oldImageName = $imageName;
             $oldImagePath = $uploadDir . $oldImageName;
             if (file_exists($oldImagePath)) {
@@ -33,14 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             move_uploaded_file($_FILES[$imageField]['tmp_name'], $uploadFile);
             return basename($_FILES[$imageField]['name']);
         } else {
-            // Si aucune nouvelle image n'est téléchargée, conserver l'ancien nom de l'image
             return $imageName;
         }
     }
 
-    $uploadDir = "../../elements/images/pages/repair/";
+    $uploadDir = "../../elements/images/pages/repair/"; //Répertoire de stockage
 
-    // Mise à jour des informations dans la base de données
+    // Mise à jour des informations
     $firstImage = uploadImage('firstImage', $_FILES['firstImage']['name'], $uploadDir);
     $secondImage = uploadImage('secondImage', $_FILES['secondImage']['name'], $uploadDir);
     $thirdImage = uploadImage('thirdImage', $_FILES['thirdImage']['name'], $uploadDir);
@@ -49,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssss", $firstText, $secondText, $thirdText, $firstImage, $secondImage, $thirdImage);
 
-    // Exécution de la requête préparée
+    // Requète
     if ($stmt->execute()) {
         echo "Mise à jour réussie";
     } else {

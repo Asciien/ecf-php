@@ -1,10 +1,6 @@
 <?php
-    // Connexion à la base de données
-    $servername = "localhost";
-    $username = "root";
-    $password = "isopropanol";
-    $dbname = "main";
-
+    include('../config.php');
+        
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Vérification de la connexion
@@ -19,13 +15,13 @@
     // Préparation de la requête SQL pour mettre à jour le mot de passe
     $sql = "UPDATE users SET Password = '$newPassword' WHERE UserID = $userID";
 
-    // Exécution de la requête SQL
+    // Exécution de la requête
     if ($conn->query($sql) === TRUE) {
         echo "Mot de passe mis à jour avec succès !";
     } else {
         echo "Erreur lors de la mise à jour du mot de passe : " . $conn->error;
     }
 
-    // Fermeture de la connexion à la base de données
+    // Fermeture de la connexion
     $conn->close();
 ?>

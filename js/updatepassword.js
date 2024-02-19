@@ -3,7 +3,7 @@ $(document).ready(function(){
         var userID = $(this).data('user-id');
         var newPassword = $('#user_password_' + userID).val();
 
-        // Envoyer la demande de mise à jour du mot de passe via AJAX
+        // Envoyer la demande de mise à jour du mot de passe
         $.ajax({
             url: '../../php/updatepassword.php',
             type: 'POST',
@@ -12,13 +12,11 @@ $(document).ready(function(){
                 newPassword: newPassword
             },
             success: function(response){
-                // Gérer la réponse du serveur si nécessaire
-                alert('Mot de passe mis à jour avec succès !');
+                alert('Mot de passe mis à jour avec succès !'); //Confirmation
             },
             error: function(xhr, status, error){
-                // Gérer les erreurs de la requête AJAX si nécessaire
                 alert('Une erreur s\'est produite lors de la mise à jour du mot de passe.');
-                console.error(xhr.responseText);
+                console.error(xhr.responseText); //Erreur
             }
         });
     });

@@ -1,22 +1,24 @@
-$(document).ready(function(){
-    $('#user_form').submit(function(event){
-        event.preventDefault(); // Empêcher la soumission normale du formulaire
+document.getElementById("user_form").addEventListener("submit", function(event) {
+    // Empêcher l'envoi du formulaire
+    event.preventDefault();
 
-        var formData = $(this).serialize(); // Récupérer les données du formulaire
-
-        // Envoyer les données du formulaire via AJAX
-        $.ajax({
-            url: '../../php/adduser.php',
-            type: 'POST',
-            data: formData,
-            success: function(response){
-                alert('Utilisateur ajouté avec succès !');
-                $('#user_form')[0].reset(); // Réinitialiser le formulaire
-            },
-            error: function(xhr, status, error){
-                alert('Une erreur s\'est produite lors de l\'ajout de l\'utilisateur.');
-                console.error(xhr.responseText);
+    // Envoyer le formulaire via AJAX
+    var formData = new FormData(this);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "../../php/adduser.php", true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                if (xhr.responseText === "success") {
+                    alert("Utilisateur ajouté avec succès !");
+                    document.getElementById("user_form").reset();
+                } else {
+                    alert("Erreur lors de l'ajout de l'utilisateur");
+                }
+            } else {
+                alert("Erreur lors de la communication avec le serveur");
             }
-        });
-    });
+        }
+    };
+    xhr.send(formData);
 });

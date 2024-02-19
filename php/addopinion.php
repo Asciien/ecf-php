@@ -1,9 +1,7 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "isopropanol";
-    $dbname = "main";
+    include('../config.php');
     
+    //Connexion à la Base de données
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Vérification de la connexion

@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $('#opinion_form').submit(function(event){
-        // Empêcher le formulaire d'être soumis normalement
+        // Empêcher le formulaire d'être soumis avant la fin du script
         event.preventDefault();
 
         // Récupérer les valeurs des champs du formulaire

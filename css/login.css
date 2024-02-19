@@ -75,6 +75,12 @@ header {
         font-size: larger;
         font-weight: bold;
     }
+    .error_message {
+        color: red;
+        font-size: large;
+        font-family: LouisGeorgeCafe;
+        align-self: center;
+    }
 }
 
 @media only screen and (max-width: 630px) {

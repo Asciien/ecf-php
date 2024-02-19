@@ -20,12 +20,10 @@
     </head>
     <body>
         <?php
-            // Connexion à la base de données
-            $servername = "localhost";
-            $username = "root";
-            $password = "isopropanol";
-            $dbname = "main";
-            
+            // Connexion à la BDD
+            include('../../config.php');
+    
+            //Connexion à la Base de données
             $conn = new mysqli($servername, $username, $password, $dbname);
         ?>
         <header>
@@ -51,66 +49,66 @@
                 <output>1</output>
             </div>
             <div class="showcase">
-                <div class="case">
-                    <p class="vehicule_name">Nom du véhicule</p>
-                    <img src="../../elements/images/testTexture.png">
-                    <div class="info">
-                        <p class="prix">n/a</p>
-                        <p class="circulation">n/a</p>
-                        <p class="kilometrage">n/a</p>
-                    </div>
-                    <button class="more_button">En savoir plus</button>
-                </div>
-                <div class="case">
-                    <p class="vehicule_name">Nom du véhicule</p>
-                    <img src="../../elements/images/testTexture.png">
-                    <div class="info">
-                        <p class="prix">n/a</p>
-                        <p class="circulation">n/a</p>
-                        <p class="kilometrage">n/a</p>
-                    </div>
-                    <button class="more_button">En savoir plus</button>
-                </div>
-                <div class="case">
-                    <p class="vehicule_name">Nom du véhicule</p>
-                    <img src="../../elements/images/testTexture.png">
-                    <div class="info">
-                        <p class="prix">n/a</p>
-                        <p class="circulation">n/a</p>
-                        <p class="kilometrage">n/a</p>
-                    </div>
-                    <button class="more_button">En savoir plus</button>
-                </div>
-                <div class="case">
-                    <p class="vehicule_name">Nom du véhicule</p>
-                    <img src="../../elements/images/testTexture.png">
-                    <div class="info">
-                        <p class="prix">n/a</p>
-                        <p class="circulation">n/a</p>
-                        <p class="kilometrage">n/a</p>
-                    </div>
-                    <button class="more_button">En savoir plus</button>
-                </div>
-                <div class="case">
-                    <p class="vehicule_name">Nom du véhicule</p>
-                    <img src="../../elements/images/testTexture.png">
-                    <div class="info">
-                        <p class="prix">n/a</p>
-                        <p class="circulation">n/a</p>
-                        <p class="kilometrage">n/a</p>
-                    </div>
-                    <button class="more_button">En savoir plus</button>
-                </div>
+                <?php
+                    // Informations de connexion à la BDD
+                    include('../../config.php');
+    
+                    //Connexion à la Base de données
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+
+                    // Vérifier la connexion
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    // Requête SQL pour récupérer les données
+                    $sql = "SELECT * FROM sell";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="case">';
+                            echo '<p class="vehicule_name">' . $row['name_model'] . '</p>';
+
+                            // Requête SQL pour récupérer le chemin de la première image depuis la table "sellimages" correspondant à l'ID du véhicule dans "sell"
+                            $sell_id = $row['id'];
+                            $sellimages_sql = "SELECT ImagePath1 FROM sellimages WHERE ForeignKey = $sell_id LIMIT 1";
+                            $sellimages_result = $conn->query($sellimages_sql);
+                                
+                            // Vérifier si une image a été trouvée dans la table sellimages pour ce véhicule
+                            if ($sellimages_result->num_rows > 0) {
+                                $sellimages_row = $sellimages_result->fetch_assoc();
+                                $image_path = $sellimages_row['ImagePath1'];
+                                echo '<img src="../' . $image_path . '">'; // Afficher l'image
+                            } else {
+                                echo '<img src="../../elements/images/default.png">'; // Afficher une image par défaut si aucune image n'est trouvée
+                            }
+
+                            echo '<div class="info">';
+                            echo '<p class="prix">' . $row['price'] . ' €</p>';
+                            echo '<div class="details">';
+                            echo '<p class="circulation">' . $row['date'] . '</p>';
+                            echo '<p class="kilometrage">' . $row['kilometer'] . ' Km</p>';
+                            echo '</div>';
+                            echo '</div>';
+
+                            // Lien vers la page de détails du véhicule avec l'ID du véhicule comme paramètre GET
+                            echo '<a href="car_detail.php?vehicle_id=' . $row['id'] . '" class="more_button">En savoir plus</a>';
+
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "Aucun véhicule trouvé.";
+                    }
+                ?>
             </div>
         </main>
 
         <footer>
-            <div id="hours">
-
-                    
+            <div id="hours"> 
                 <?php
 
-                    // Requête SQL pour récupérer les informations de la table openhours
+                    // Récupération de la table openhours
                     $sql = "SELECT Day, IsOpen,
                     DATE_FORMAT(MorningOpeningTime, '%H:%i') AS MorningOpeningTime,
                     DATE_FORMAT(MorningClosingTime, '%H:%i') AS MorningClosingTime,
@@ -121,9 +119,7 @@
                     
                     // Vérifier si des résultats sont retournés
                     if ($result->num_rows > 0) {
-                        // Parcourir chaque ligne de résultat
                         while($row = $result->fetch_assoc()) {
-                            // Afficher les informations selon le format demandé
                             echo "<p>" . $row["Day"] . ":    ";
                             
                             if ($row["IsOpen"]) {
@@ -140,7 +136,7 @@
                         echo "Aucun résultat trouvé";
                     }
                     
-                    // Fermer la connexion à la base de données
+                    // Fermer la connexion à la BDD
                     $conn->close();
 
                 ?>

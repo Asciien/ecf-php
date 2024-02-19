@@ -19,11 +19,9 @@
     <body>
         <?php
             // Connexion à la base de données
-            $servername = "localhost";
-            $username = "root";
-            $password = "isopropanol";
-            $dbname = "main";
-            
+            include('../../config.php');
+    
+            //Connexion à la Base de données
             $conn = new mysqli($servername, $username, $password, $dbname);
         ?>
 
@@ -108,9 +106,7 @@
                     
                     // Vérifier si des résultats sont retournés
                     if ($result->num_rows > 0) {
-                        // Parcourir chaque ligne de résultat
                         while($row = $result->fetch_assoc()) {
-                            // Afficher les informations selon le format demandé
                             echo "<p>" . $row["Day"] . ":    ";
                             
                             if ($row["IsOpen"]) {

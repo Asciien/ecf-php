@@ -35,15 +35,15 @@ CREATE TABLE IF NOT EXISTS main.openhours (
     AfternoonClosingTime TIME NOT NULL
 );
 
-INSERT INTO openhours (Day, MorningOpeningTime, MorningClosingTime, AfternoonOpeningTime, AfternoonClosingTime)
+INSERT INTO openhours (Day, IsOpen, MorningOpeningTime, MorningClosingTime, AfternoonOpeningTime, AfternoonClosingTime)
 VALUES 
-('Lundi', '08:00', '12:00', '13:30', '18:00'),
-('Mardi', '08:00', '12:00', '13:30', '18:00'),
-('Mercredi', '08:00', '12:00', '13:30', '18:00'),
-('Jeudi', '08:00', '12:00', '13:30', '18:00'),
-('Vendredi', '08:00', '12:00', '13:30', '18:00'),
-('Samedi', '08:00', '12:00', '13:30', '18:00'),
-('Dimanche', '08:00', '12:00', '13:30', '18:00');
+('Lundi', "1", '08:00', '12:00', '13:30', '18:00'),
+('Mardi', "1", '08:00', '12:00', '13:30', '18:00'),
+('Mercredi', "1", '08:00', '12:00', '13:30', '18:00'),
+('Jeudi', "1", '08:00', '12:00', '13:30', '18:00'),
+('Vendredi', "1", '08:00', '12:00', '13:30', '18:00'),
+('Samedi', "1", '08:00', '12:00', '13:30', '18:00'),
+('Dimanche', "0", '08:00', '12:00', '13:30', '18:00');
 
 CREATE TABLE IF NOT EXISTS main.repair (
 	FirstText TEXT NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS main.sell (
     description TEXT NOT NULL,
     kilometer INT NOT NULL,
     color VARCHAR(25) NOT NULL,
-    date DATE NOT NULL,
+    date INT(4) NOT NULL,
     horsepower INT(4) NOT NULL,
     doors INT(2) NOT NULL,
     places INT(2) NOT NULL,
@@ -78,6 +78,18 @@ CREATE TABLE IF NOT EXISTS main.sell (
     transmission VARCHAR(25) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS main.sell_images {
-	id relation pour mettre id de sell
-}
+CREATE TABLE main.sellImages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ForeignKey INT,
+    ImagePath1 VARCHAR(255),
+    ImagePath2 VARCHAR(255),
+    ImagePath3 VARCHAR(255),
+    ImagePath4 VARCHAR(255),
+    ImagePath5 VARCHAR(255),
+    ImagePath6 VARCHAR(255),
+    ImagePath7 VARCHAR(255),
+    ImagePath8 VARCHAR(255),
+    ImagePath9 VARCHAR(255),
+    ImagePath10 VARCHAR(255),
+    FOREIGN KEY (ForeignKey) REFERENCES sell(id)
+);

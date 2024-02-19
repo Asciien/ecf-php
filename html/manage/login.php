@@ -1,58 +1,63 @@
 <?php
-session_start(); // Démarre la session
+// Connexion à la base de données
+include('../../config.php');
 
-// Vérifier si l'utilisateur est déjà connecté
-if(isset($_SESSION['user_id'])) {
-    header("Location: management.php");
-    exit();
-}
+// Initialiser la session
+session_start();
 
-// Vérification des données de connexion si le formulaire est soumis
+// Initialiser la variable pour le message d'erreur
+$errorMsg = "";
+
+// Vérifier si le formulaire de connexion a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Connexion à la base de données (à remplacer par vos propres informations de connexion)
-    $servername = "localhost";
-    $username = "root";
-    $password_db = "isopropanol";
-    $dbname = "main";
+    // Récupérer les données
+    $userEmail = $_POST['email'];
+    $userPassword = $_POST['password'];
 
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password_db);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Connexion à la base de données
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Récupération des données du formulaire
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        // Vérification de l'existence de l'utilisateur dans la base de données
-        $stmt = $conn->prepare("SELECT UserID, Email, Password FROM Users WHERE Email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-
-        if ($stmt->rowCount() == 1) {
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            // Vérification du mot de passe
-            if (password_verify($password, $user['Password'])) {
-                // Authentification réussie, enregistrement des informations de l'utilisateur dans la session
-                $_SESSION['user_id'] = $user['UserID'];
-                header("Location: management.php");
-                exit();
-            } else {
-                $error_message = "Mot de passe incorrect.";
-            }
-        } else {
-            $error_message = "Adresse e-mail incorrecte.";
-        }
-    } catch(PDOException $e) {
-        $error_message = "Erreur de connexion à la base de données: " . $e->getMessage();
+    // Vérification de la connexion
+    if ($conn->connect_error) {
+        die("La connexion a échoué : " . $conn->connect_error);
     }
-    $conn = null;
+
+    // Requête pour récupérer le mot de passe associé au mail
+    $sql = "SELECT UserID, Password FROM users WHERE Email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $userEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Utilisateur trouvé
+        $row = $result->fetch_assoc();
+        $hashedPassword = $row['Password'];
+        
+        if (password_verify($userPassword, $hashedPassword)) {
+            // Mot de passe correct, créer une session et rediriger vers l'espace management
+            $_SESSION['user_id'] = $row['UserID']; // Utilisation de UserID
+            header("Location: management.php");
+            exit();
+        } else {
+            // Mot de passe incorrect, mettre à jour le message d'erreur
+            $errorMsg = "Email ou mot de passe incorrect.";
+        }
+    } else {
+        // Utilisateur non trouvé, mettre à jour le message d'erreur
+        $errorMsg = "Email ou mot de passe incorrect.";
+    }
+
+    // Fermer la connexion à la base de données
+    $stmt->close();
+    $conn->close();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!--Head informations-->
+    <!-- Head informations -->
 
     <title>Garage V.Parrot | Connexion</title>
     <meta charset="utf-8">
@@ -61,23 +66,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="robots" content="noindex">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--Import CSS-->
+    <!-- Import CSS -->
     <link href="../../css/login.css" rel="stylesheet">
 </head>
-<body>
-<header>
-    <a href="../../index.php"><img id="logo" src="../../elements/images/header/logo.svg" alt="logo-garage"></a>
-    <h1>Connexion | Espace de gestion</h1>
-</header>
-<div class="connexion_interface">
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <input id="login_email" class="inputs" type="email" name="email" placeholder="Adresse e-mail" required>
-        <input id="login_password" class="inputs" type="password" name="password" placeholder="Mot de passe" required>
-        <button type="submit">Connexion</button>
-    </form>
-    <?php if(isset($error_message)) { ?>
-        <p><?php echo $error_message; ?></p>
-    <?php } ?>
-</div>
-</body>
+    <body>
+        <header>
+            <a href="../../index.php"><img id="logo" src="../../elements/images/header/logo.svg" alt="logo-garage"></a>
+            <h1>Connexion | Espace de gestion</h1>
+        </header>
+        <div class="connexion_interface">
+            <form id="login_form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <input id="login_email" class="inputs" type="email" name="email" placeholder="Adresse e-mail" required>
+                <input id="login_password" class="inputs" type="password" name="password" placeholder="Mot de passe" required>
+                <button type="submit">Connexion</button>
+            </form>
+            <span class="error_message"><?php echo $errorMsg; ?></span>
+        </div>
+    </body>
 </html>

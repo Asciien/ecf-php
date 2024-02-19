@@ -1,3 +1,48 @@
+<?php
+    include('../../config.php');
+    
+    // Connexion à la Base de données
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Vérifier la connexion
+    if ($conn->connect_error) {
+        die("La connexion a échoué : " . $conn->connect_error);
+    }
+
+    // Initialiser la session
+    session_start();
+
+    // Vérifier si l'utilisateur est connecté
+    if (!isset($_SESSION["user_id"])) {
+        // Rediriger vers la page de login
+        header("Location: login.php");
+        exit();
+    }
+
+    // Récupérer le rôle de l'utilisateur depuis la session
+    $userId = $_SESSION["user_id"];
+    $sql = "SELECT Role FROM users WHERE UserID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Vérifier si des résultats ont été trouvés
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $role = $row["Role"];
+    } else {
+        // Su l'user n'est pas trouvé. Renvoyer à la page de connexion
+        session_unset();
+        session_destroy();
+        header("Location: login.php");
+        exit();
+    }
+
+    $stmt->close(); // Fermeture de la requète
+    $conn->close(); // Fermeture de la BDD
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -18,13 +63,11 @@
     </head>
     <body>
         <?php
-            // Connexion à la base de données
-            $servername = "localhost";
-            $username = "root";
-            $password = "isopropanol";
-            $dbname = "main";
-            
+            include('../../config.php');
+    
+            //Connexion à la Base de données
             $conn = new mysqli($servername, $username, $password, $dbname);
+            
         ?>
 
         <header>
@@ -34,12 +77,15 @@
 
         <main>
             <nav>
-                <button onclick="Display('pages')">Pages</button> <!--Admin seulement-->
-                <button onclick="Display('opinion')">Avis</button> <!--Modération et ajout des avis client-->
+                <button onclick="Display('opinion')">Avis</button> <!-- Modération et ajout des avis client -->
                 <button onclick="Display('contact')">Contact</button>
                 <button onclick="Display('sells')">Ventes</button>
-                <button onclick="Display('users')">Utilisateurs</button> <!--Admin seulement-->
-                <button onclick="Display('hours')">Horraires</button> <!--Admin seulement-->
+
+                <?php if ($role == 1): // Afficher ces boutons uniquement si l'utilisateur est administrateur ?>
+                    <button onclick="Display('pages')">Pages</button> <!-- Admin seulement -->
+                    <button onclick="Display('users')">Utilisateurs</button> <!-- Admin seulement -->
+                    <button onclick="Display('hours')">Horaires</button> <!-- Admin seulement -->
+                <?php endif; ?>
             </nav>
 
             <div class="pages">
@@ -51,23 +97,21 @@
                     <div class="edition">
                         <form action="../../php/repair.php" method="post" enctype="multipart/form-data">
                             <?php
-                                // Connexion à la base de données
-                                $servername = "localhost";
-                                $username = "root";
-                                $password = "isopropanol";
-                                $dbname = "main";
-
+                                // Connexion à la BDD
+                                include('../../config.php');
+    
+                                //Connexion à la Base de données
                                 $conn = new mysqli($servername, $username, $password, $dbname);
 
-                                if ($conn->connect_error) {
+                                if ($conn->connect_error) { //On vérifie la connexion
                                     die("Connection failed: " . $conn->connect_error);
                                 }
 
                                 $sql = "SELECT FirstText, SecondText, ThirdText, FirstImage, SecondImage, ThirdImage FROM repair";
-                                $result = $conn->query($sql);
+                                $result = $conn->query($sql); //On récupère les infos de la table 
                                 $row_repair = $result->fetch_assoc();
 
-                                $uploadDir = "../../elements/images/pages/repair/";
+                                $uploadDir = "../../elements/images/pages/repair/"; //Endroit ou stocker les images
                             ?>
                             <div class="content">
                                 <textarea name="firstText"><?php echo $row_repair['FirstText']; ?></textarea>
@@ -92,12 +136,10 @@
                     <div class="edition">
                         <form action="../../php/bodycar.php" method="post" enctype="multipart/form-data">
                             <?php
-                                // Connexion à la base de données
-                                $servername = "localhost";
-                                $username = "root";
-                                $password = "isopropanol";
-                                $dbname = "main";
-
+                                // Connexion à la BDD
+                                include('../../config.php');
+    
+                                //Connexion à la Base de données
                                 $conn = new mysqli($servername, $username, $password, $dbname);
 
                                 if ($conn->connect_error) {
@@ -134,14 +176,13 @@
                 <h2>Avis en attente d'autorisation</h2>
                 <div class="opinion_filter">
                     <?php
-                    // Sélectionne tous les avis avec IsAllowed égal à 0
+                    // Uniquement les avis avec contenant "IsAllowed = 0". Ce sont les avis qui ne sont pas encore autorisés par l'admin
                     $sql = "SELECT * FROM opinion WHERE IsAllowed = 0";
                     $result = $conn->query($sql);
 
-                    // Parcours les avis et les affiche dans le HTML
                     if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                    ?>
+                        while ($row = $result->fetch_assoc()) { // On répète l'affichage HTML pour chaque avis
+                    ?> 
                             <div class="opinion_tile" id="opinionTile_<?php echo $row['id']; ?>">
                                 <div class="opinion_header">
                                     <p class="name"><?php echo $row['Name']; ?></p>
@@ -217,12 +258,11 @@
                     <?php
 
                         $sql = "SELECT UserID, Password, Role, Email, Nom, Prenom FROM users";
-                        $result = $conn->query($sql);
+                        $result = $conn->query($sql); //On récupère les infos de la table
 
                         if ($result->num_rows > 0) {
-                            // Boucler à travers chaque ligne de résultat
                             while($row = $result->fetch_assoc()) {
-                                // Afficher les informations de chaque utilisateur dans une div répétée
+                                // On répète pour chaque ligne dans la table
                                 echo "<div class='user_info'>";
                                 echo "<div class='user_gestion'>";
                                 echo "<button class='delete_user'><i class='large material-icons'>delete_forever</i></button>";
@@ -246,13 +286,13 @@
                             echo "Aucun utilisateur trouvé.";
                         }
 
-                        // Fermeture de la connexion à la base de données
-                        $conn->close();
+                        
+                        $conn->close(); // Fermeture de la connexion à la base de données
                     ?>
                 </div>
                 <div class="user_add">
                     <h2>Création utilisateur</h2>
-                    <form id="user_form" method="post">
+                    <form id="user_form" method="post" action="traitement.php">
                         <div class="create_user_names">
                             <input class="user_create_input" id="user_name" name="user_name" placeholder="Prénom" type="text" maxlength="32" required>
                             <input class="user_create_input" id="user_lastname" name="user_lastname" placeholder="Nom" type="text" maxlength="32" required>
@@ -272,17 +312,20 @@
             <div class="contact">
                 <div class="contact_list">
                     <?php
-                    // Connexion à la base de données et récupération des contacts
+                    include('../../config.php');
+    
+                    //Connexion à la Base de données
                     $conn = new mysqli($servername, $username, $password, $dbname);
-                    if ($conn->connect_error) {
+
+                    if ($conn->connect_error) { // Vérificatio de la connexion
                         die("Connection failed: " . $conn->connect_error);
                     }
 
                     $sql = "SELECT ContactID, FirstName, Name, Email, Phone, Message FROM contact";
-                    $result = $conn->query($sql);
+                    $result = $conn->query($sql); //On récupère les infos de la table
 
                     if ($result->num_rows > 0) {
-                        // Afficher chaque contact dans un bloc HTML
+                        // On répète pour chaque ligne dans la table
                         while($row = $result->fetch_assoc()) {
                             echo '<div class="contact_case">';
                             echo '<div class="contact_informations">';
@@ -309,78 +352,80 @@
             <div class="sells">
                 <h2>Annonces en ligne</h2>
                 <div class="sells_online">
-                    <div class="cases">
-                        <div class="case_header">
-                            <p class="online_vehicle_name">Auto nom modèle XX0</p>
-                            <p class="online_vehicle_price"></p><p class="€">€</p>
-                        </div>
-                        <img src="../../elements/images/testTexture.png" alt="preview">
-                        <button class="sell_delete" id="sell_delete"><i class="large material-icons">delete_forever</i></button>
-                    </div>
-                    <div class="cases">
-                        <div class="case_header">
-                            <p class="online_vehicle_name">Auto nom modèle XX0</p>
-                            <p class="online_vehicle_price"></p><p class="€">€</p>
-                        </div>
-                        <img src="../../elements/images/testTexture.png" alt="preview">
-                        <button class="sell_delete" id="sell_delete"><i class="large material-icons">delete_forever</i></button>
-                    </div>
-                    <div class="cases">
-                        <div class="case_header">
-                            <p class="online_vehicle_name">Auto nom modèle XX0</p>
-                            <p class="online_vehicle_price"></p><p class="€">€</p>
-                        </div>
-                        <img src="../../elements/images/testTexture.png" alt="preview">
-                        <button class="sell_delete" id="sell_delete"><i class="large material-icons">delete_forever</i></button>
-                    </div>
+                    <?php
+                        include('../../config.php');
+
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+
+                        $sql = "SELECT * FROM sell";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                echo '<div class="cases">';
+                                echo '<div class="case_header">';
+                                echo '<p class="online_vehicle_name">' . $row["name_model"] . '</p>';
+                                echo '<p class="online_vehicle_price">' . $row["price"] . ' €</p>';
+                                echo '</div>'; 
+                                echo '<button class="sell_delete" data-sell-id="' . $row["id"] . '"><i class="large material-icons">delete_forever</i></button>';
+                                echo '</div>';
+                            }
+                        } else {
+                            echo "Aucun véhicule trouvé.";
+                        }
+
+                        $conn->close();
+                    ?>
+
                 </div>
                 <div class="sells_add">
                     <h2>Publier une annonce </h2>
-                    <div class="inputs">
-                        <div class="add_main">
-                            <input class="vehicle_name" id="vehicle_name" placeholder="Modele du véhicle" type="text" required>
-                            <textarea name="input_message" placeholder="Description"></textarea>
-                            <input class="vehicle_price" id="vehicle_price" placeholder="prix" type="number" required>
+                    <form action="../../php/addvehicle.php" method="post" enctype="multipart/form-data">
+                        <div class="inputs">
+                            <div class="add_main">
+                                <input class="vehicle_name" id="vehicle_name" name="vehicle_name" placeholder="Modèle du véhicule" type="text" required>
+                                <textarea name="input_message" placeholder="Description"></textarea>
+                                <input class="vehicle_price" id="vehicle_price" name="vehicle_price" placeholder="Prix" type="number" required>
+                            </div>
+                            <div class="add_details">
+                                <input class="vehicle_km" id="vehicle_km" name="vehicle_km" placeholder="Kilomètres" type="text">
+                                <input class="vehicle_color" id="vehicle_color" name="vehicle_color" placeholder="Couleur" type="text">
+                                <input class="vehicle_date" id="vehicle_date" name="vehicle_date" placeholder="Mise en circulation" type="text">
+                                <input class="vehicle_cv" id="vehicle_cv" name="vehicle_cv" placeholder="Chevaux" type="text">
+                                <input class="vehicle_doors" id="vehicle_doors" name="vehicle_doors" placeholder="Nombre de portes" type="text">
+                                <input class="vehicle_places" id="vehicle_places" name="vehicle_places" placeholder="Places" type="text">
+                                <input class="vehicle_fuel" id="vehicle_fuel" name="vehicle_fuel" placeholder="Carburant" type="text">
+                                <input class="vehicle_type" id="vehicle_type" name="vehicle_type" placeholder="Transmission" type="text">
+                            </div>
+                            <div class="add_pictures">
+                                <input class="pictures" type="file" id="images" name="images[]" multiple accept="image/*">
+                                <p class="added_pictures">Aucune image</p>
+                            </div>
                         </div>
-                        <div class="add_details">
-                            <input class="vehicle_km" id="vehicle_km" placeholder="Kilomètres" type="text">
-                            <input class="vehicle_color" id="vehicle_color" placeholder="Couleur" type="text">
-                            <input class="vehicle_date" id="vehicle_date" placeholder="Mise en circulation" type="text">
-                            <input class="vehicle_cv" id="vehicle_cv" placeholder="Chevaux" type="text">
-                            <input class="vehicle_doors" id="vehicle_doors" placeholder="Nombre de portes" type="text">
-                            <input class="vehicle_places" id="vehicle_places" placeholder="Places" type="text">
-                            <input class="vehicle_fuel" id="vehicle_fuel" placeholder="Carburant" type="text">
-                            <input class="vehicle_type" id="vehicle_type" placeholder="Transmission" type="text">
-                        </div>
-                        <div class="add_pictures">
-                            <input class="pictures" type="file" id="images" name="images[]" multiple accept="image/*">
-                            <p class="added_pictures">Aucune image</p>
-                        </div>
-                    </div>
-                    <input class="validate" type="submit" value="Publier l'annonce"></input>
+                        <input class="validate" type="submit" value="Publier l'annonce">
+                    </form>
                 </div>
             </div>
             <div class="hours">
                 <form method="post" id="openhours_form">
                     <?php
-                        // Connexion à la base de données (à remplacer avec vos propres informations de connexion)
-                        $servername = "localhost";
-                        $username = "root";
-                        $password = "isopropanol";
-                        $dbname = "main";
-
-                        // Création de la connexion
+                        include('../../config.php');
+                        
+                        // Connexion à la Base de données
                         $conn = new mysqli($servername, $username, $password, $dbname);
 
                         // Requête pour récupérer les heures d'ouverture de la base de données
                         $sql = "SELECT Day, IsOpen, MorningOpeningTime, MorningClosingTime, AfternoonOpeningTime, AfternoonClosingTime FROM openhours";
                         $result = $conn->query($sql);
 
-                        // Vérification s'il y a des résultats
+                        // Vérification s'il y a des infos dans la table
                         if ($result->num_rows > 0) {
-                            // Parcourir les résultats de la requête
                             while($row = $result->fetch_assoc()) {
-                                // Construire l'ID de l'élément HTML pour chaque jour
+                                // On répète le formulaire pour chaque jours
                                 $day_id = strtolower($row["Day"]);
                                 ?>
                                 <div class="hours_fields" id="<?php echo $day_id; ?>">
@@ -414,5 +459,7 @@
         <script src="../../js/manage_contact.js"></script>
         <script src="../../js/updatepassword.js"></script>
         <script src="../../js/adduser.js"></script>
+        <script src="../../js/deleteuser.js"></script>
+        <script src="../../js/deletesell.js"></script>
     </body>
 </html>

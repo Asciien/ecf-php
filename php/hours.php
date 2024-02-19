@@ -1,13 +1,10 @@
 <?php
 // Vérification si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Connexion à la base de données (à remplacer avec vos propres informations de connexion)
-    $servername = "localhost";
-    $username = "root";
-    $password = "isopropanol";
-    $dbname = "main";
-
-    // Création de la connexion
+    // Informations de connexion à la BDD
+    include('../config.php');
+    
+    //Connexion à la Base de données
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Vérification de la connexion
@@ -18,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Parcourir les jours de la semaine
     $days_of_week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     foreach ($days_of_week as $day) {
-        // Vérification si le jour est ouvert
         $isOpen = isset($_POST[$day.'_open']) ? 1 : 0;
         // Récupération des heures d'ouverture et de fermeture
         $morningOpeningTime = $_POST[$day.'_open_morning'];
@@ -26,20 +22,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $afternoonOpeningTime = $_POST[$day.'_open_afternoon'];
         $afternoonClosingTime = $_POST[$day.'_close_afternoon'];
 
-        // Préparation de la requête SQL
+        // Requête SQL
         $sql = "UPDATE openhours SET IsOpen=?, MorningOpeningTime=?, MorningClosingTime=?, AfternoonOpeningTime=?, AfternoonClosingTime=? WHERE Day=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("isssss", $isOpen, $morningOpeningTime, $morningClosingTime, $afternoonOpeningTime, $afternoonClosingTime, $day);
-        $stmt->execute();
+        $stmt->execute(); // Execution de la requète
     }
 
     // Fermeture de la connexion
     $conn->close();
 
-    // Réponse JSON pour JavaScript
+    // Réponse
     echo json_encode(array("success" => true));
 } else {
-    // Réponse JSON en cas d'erreur
+    // Réponse si erreur
     echo json_encode(array("error" => "Le formulaire n'a pas été soumis correctement."));
 }
 ?>

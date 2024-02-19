@@ -14,12 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Réponse de la requête AJAX
+                        // Réponse
                         console.log(xhr.responseText);
-                        // Vous pouvez ajouter ici un feedback visuel si nécessaire
                     }
                 };
-                xhr.send('contact_id=' + contactID); // Envoi de l'ID du contact à supprimer
+                xhr.send('contact_id=' + contactID); // Envoi de l'ID du contact à supprimer au php
             }
         });
     });
